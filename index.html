@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jitware | Premium Webdesign, SEO & AI Solutions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --indigo: #4f46e5;
+            --violet: #7c3aed;
+            --dark-bg: #111827; /* Gray 900 */
+            --light-bg: #f9fafb; /* Gray 50 */
+        }
+        
+        html {
+            scroll-behavior: smooth; /* Fallback for browsers without JS */
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--light-bg);
+            color: #374151; /* Gray 700 */
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, var(--indigo) 0%, var(--violet) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .reveal .gradient-text {
+    font-size: 3rem; /* Example font size */
+    font-weight: bold;
+    background: linear-gradient(
+        270deg, 
+        #4f46e5, /* Indigo */
+        #00f2ff, /* Pink */
+        #200065, /* Emerald */
+        #00b3ff  /* Amber */
+    );
+    background-size: 800% 800%; /* Larger size for smooth movement */
+    background-position: 0% 50%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientMove 6s linear infinite; /* Faster: 2s */
+}
+
+@keyframes gradientMove {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
+    .social-proof .md\:p-10 {
+        height: 280px;
+    }
+
+        /* --- Animations & Interactions --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .primary-btn {
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px 0 rgba(79, 70, 229, 0.4);
+        }
+        .primary-btn:hover {
+            box-shadow: 0 7px 25px 0 rgba(124, 58, 237, 0.5);
+            transform: translateY(-3px);
+        }
+
+        .secondary-btn {
+            transition: all 0.3s ease;
+        }
+        .secondary-btn:hover {
+            background-color: rgba(79, 70, 229, 0.05);
+            transform: translateY(-3px);
+        }
+
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .logo-hover {
+            transition: all 0.3s ease;
+            filter: grayscale(100%);
+            opacity: 0.6;
+        }
+        .logo-hover:hover {
+            filter: grayscale(0%);
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        /* --- 3D Tilt Effect for Hero Image --- */
+       .hero-visual-card {
+    transform-style: preserve-3d;
+    transform: perspective(1000px);
+    transition: transform 0.4s ease;
+    border-radius: 10px;
+
+    /* Initial glow */
+    box-shadow: 0 0 30px rgba(75, 201, 255, 0.7);
+
+    /* Animation */
+    animation: glowPulse 2s infinite ease-in-out;
+}
+
+@keyframes glowPulse {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(0, 110, 201, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 40px rgb(77, 124, 255);
+    }
+}
+
+        @media (max-width: 786px){
+                .social-proof .md\:p-10 {
+                    height: 70vh;
+                }
+        } 
+    </style>
+</head>
+<body class="bg-gray-50">
+
+<!-- Navigation -->
+<nav class="bg-white/80 backdrop-blur-lg shadow-sm sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between h-20 items-center">
+      <a href="#" class="flex-shrink-0 flex items-center">
+        <span class="font-extrabold text-2xl gradient-text">Jitware</span>
+      </a>
+      <div class="hidden md:block">
+        <div class="ml-10 flex items-baseline space-x-6">
+          <a href="#diensten" data-scroll class="text-gray-600 hover:text-indigo-600 px-3 py-2 font-medium transition-colors">Services</a>
+          <a href="#cases" data-scroll class="text-gray-600 hover:text-indigo-600 px-3 py-2 font-medium transition-colors">Cases</a>
+          <a href="#blog" data-scroll class="text-gray-600 hover:text-indigo-600 px-3 py-2 font-medium transition-colors">Blog</a>
+          <a href="#over-ons" data-scroll class="text-gray-600 hover:text-indigo-600 px-3 py-2 font-medium transition-colors">About</a>
+          <a href="#contact" data-scroll class="bg-indigo-600 text-white px-5 py-2 rounded-full hover:bg-indigo-700 transition duration-300 font-semibold shadow-sm hover:shadow-md text-sm">Contact</a>
+        </div>
+      </div>
+      <div class="md:hidden">
+        <button id="mobile-menu-button" class="text-gray-700 focus:outline-none"><i class="fas fa-bars text-2xl"></i></button>
+      </div>
+    </div>
+  </div>
+  <div id="mobile-menu" class="md:hidden hidden flex-col space-y-2 px-4 pb-6 bg-white shadow-inner">
+    <a href="#diensten" data-scroll class="block text-gray-700 hover:text-indigo-600 py-2">Services</a>
+    <a href="#cases" data-scroll class="block text-gray-700 hover:text-indigo-600 py-2">Cases</a>
+    <a href="#blog" data-scroll class="block text-gray-700 hover:text-indigo-600 py-2">Blog</a>
+    <a href="#over-ons" data-scroll class="block text-gray-700 hover:text-indigo-600 py-2">About Us</a>
+    <a href="#contact" data-scroll class="block mt-2 bg-indigo-600 text-white px-4 py-2 rounded-full text-center hover:bg-indigo-700">Contact</a>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="relative bg-gray-50 text-gray-800 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+            <div class="reveal">
+                <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-6 ">Grow Your Business with <span class="gradient-text">Strategic Digital Solutions</span></h1>
+                <p class="text-lg md:text-xl mb-10 text-gray-600">We combine premium web design, data-driven SEO, and innovative AI to deliver measurable growth for your brand.</p>
+                <div class="flex flex-col sm:flex-row items-center gap-4">
+                    <a href="#contact" data-scroll class="primary-btn bg-indigo-600 text-white px-8 py-4 rounded-full font-bold text-center w-full sm:w-auto">I want more customers</a>
+                    <a href="#ai-solutions" data-scroll class="secondary-btn border-2 border-indigo-500 text-indigo-600 px-8 py-3.5 rounded-full font-bold text-center hover:bg-indigo-50 transition w-full sm:w-auto">AI solutions</a>
+                </div>
+            </div>
+            <div class="hero-visual-container reveal" style="transition-delay: 0.2s;">
+                <div class="relative hero-visual-card">
+                    <div class="absolute -inset-2.5 bg-gradient-to-tr from-violet-500 to-indigo-400 rounded-2xl opacity-20 blur-2xl"></div>
+                    <div class="relative bg-white/60 backdrop-blur-sm rounded-xl shadow-2xl overflow-hidden p-1.5">
+                        <img src="bestanden/performance-dashboard-2.png" alt="Performance dashboard" class="rounded-lg w-full h-auto">
+                        <div class="p-4 sm:p-5 bg-gray-50/80"><div class="flex justify-between items-center"><div><h3 class="font-bold text-gray-800">Client Results Dashboard</h3><p class="text-sm text-gray-600">Last 90 Days Performance</p></div><div class="text-right"><p class="text-green-600 font-bold text-xl sm:text-2xl">+247%</p><p class="text-xs text-gray-600">Organic Traffic</p></div></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Why Choose Us (Dark Section) -->
+<section class="bg-gray-900 text-white py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 reveal">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">The Jitware Difference</h2>
+            <p class="text-xl text-gray-400 max-w-3xl mx-auto">We don't just build websites. We build growth engines.</p>
+        </div>
+        <div class="grid md:grid-cols-3 gap-10">
+            <div class="text-center reveal"><div class="mx-auto w-16 h-16 mb-6 flex items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-600"><svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg></div><h3 class="text-xl font-semibold mb-2">Results-Driven</h3><p class="text-gray-400">Our success is measured by your success. We focus on KPIs that matter: traffic, leads, and revenue.</p></div>
+            <div class="text-center reveal" style="transition-delay: 0.15s;"><div class="mx-auto w-16 h-16 mb-6 flex items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-600"><svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div><h3 class="text-xl font-semibold mb-2">AI-Powered Efficiency</h3><p class="text-gray-400">We leverage cutting-edge AI to accelerate insights, automate tasks, and deliver superior results, faster.</p></div>
+            <div class="text-center reveal" style="transition-delay: 0.3s;"><div class="mx-auto w-16 h-16 mb-6 flex items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-600"><svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg></div><h3 class="text-xl font-semibold mb-2">Collaborative Partner</h3><p class="text-gray-400">We work as an extension of your team, ensuring transparency, communication, and a shared vision for growth.</p></div>
+        </div>
+    </div>
+</section>
+
+<!-- Social Proof Section -->
+<section class="py-20 bg-gray-50 social-proof">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 reveal">
+            <p class="text-center text-gray-500 font-semibold mb-8 uppercase tracking-wider">Trusted by Leading Businesses</p>
+            <div class="flex flex-wrap justify-center items-center gap-x-10 md:gap-x-16 gap-y-6">
+                 <a href="https://www.dedoncker.be" target="_blank" class="logo-hover text-gray-700 text-lg font-medium hover:text-indigo-600 transition-colors">De Doncker</a>
+                 <a href="https://www.ds-cleaning.be" target="_blank" class="logo-hover text-gray-700 text-lg font-medium hover:text-indigo-600 transition-colors">DS Cleaning</a>
+                 <a href="https://www.vissershofmere.be" target="_blank" class="logo-hover text-gray-700 text-lg font-medium hover:text-indigo-600 transition-colors">Vissershof</a>
+                 <a href="https://www.otentik-wellness.be" target="_blank" class="logo-hover text-gray-700 text-lg font-medium hover:text-indigo-600 transition-colors">Otentik Wellness</a>
+                 <a href="https://www.bvconell.be/" target="_blank" class="logo-hover text-gray-700 text-lg font-medium hover:text-indigo-600 transition-colors">Conell BV</a>
+            </div>
+        </div>
+        <div class="mt-20 max-w-4xl mx-auto reveal" style="transition-delay: 0.15s;">
+            <div class="card-hover bg-white p-8 md:p-10 rounded-xl border border-gray-200/50 shadow-lg relative">
+                <div class="absolute -top-6 -left-6 w-16 h-16 bg-gradient-to-br from-indigo-500 to-violet-500 text-white rounded-2xl flex items-center justify-center shadow-lg"><i class="fas fa-quote-left text-3xl"></i></div>
+                <div class="flex flex-col md:flex-row items-start gap-6 testimonial-container"><!-- Testimonial content will be injected by JS --></div>
+            </div>
+            <div class="flex justify-center mt-8 space-x-2 testimonial-dots"><!-- Dots will be injected by JS --></div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Section -->
+<section id="diensten" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 reveal">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Core Services</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">Everything you need for digital dominance, under one roof.</p>
+        </div>
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="card-hover bg-white rounded-xl shadow-lg overflow-hidden reveal"><div class="p-8"><div class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mb-6"><i class="fas fa-search text-indigo-600 text-2xl"></i></div><h3 class="text-xl font-bold text-gray-900 mb-4">SEO & Web Design</h3><p class="text-gray-600 mb-6">We build high-performance websites that not only look stunning but are engineered to rank and convert.</p></div><div class="bg-gray-50/70 px-8 py-4 border-t border-gray-100"><ul class="space-y-2 text-sm text-gray-700"><li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3"></i>Technical SEO Audits</li><li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3"></i>Conversion Rate Optimization</li><li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3"></i>Responsive UI/UX Design</li></ul></div></div>
+            <div class="card-hover bg-white rounded-xl shadow-lg overflow-hidden reveal" style="transition-delay: 0.15s;"><div class="p-8"><div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mb-6"><i class="fas fa-video text-purple-600 text-2xl"></i></div><h3 class="text-xl font-bold text-gray-900 mb-4">Video & Graphic Design</h3><p class="text-gray-600 mb-6">Capture attention and build brand equity with professional corporate videos and a cohesive visual identity.</p></div><div class="bg-gray-50/70 px-8 py-4 border-t border-gray-100"><ul class="space-y-2 text-sm text-gray-700"><li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3"></i>Corporate Videos</li><li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3"></i>Logo & Brand Identity</li><li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3"></i>Social Media Content</li></ul></div></div>
+            <div class="card-hover bg-white rounded-xl shadow-lg overflow-hidden reveal" style="transition-delay: 0.3s;"><div class="p-8"><div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6"><i class="fas fa-robot text-blue-600 text-2xl"></i></div><h3 class="text-xl font-bold text-gray-900 mb-4">AI Solutions</h3><p class="text-gray-600 mb-6">Automate, scale, and innovate with our custom AI integrations that save time and boost productivity.</p></div><div class="bg-gray-50/70 px-8 py-4 border-t border-gray-100"><ul class="space-y-2 text-sm text-gray-700"><li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3"></i>AI-Powered Analytics</li><li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3"></i>Automated Content Generation</li><li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3"></i>Generative Engine Optimization</li></ul></div></div>
+        </div>
+    </div>
+</section>
+
+<!-- Results Section -->
+<section class="py-20 bg-gray-900 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 reveal">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">Results That Matter</h2>
+            <p class="text-xl text-gray-400 max-w-3xl mx-auto">We measure our success by your growth.</p>
+        </div>
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="bg-white/5 p-8 rounded-xl backdrop-blur-sm reveal"><div class="text-5xl font-bold mb-4 gradient-text">+75%</div><h3 class="text-xl font-semibold mb-3">More Visitors</h3><p class="text-gray-400">Average increase in organic traffic within 6 months for our SEO clients.</p></div>
+            <div class="bg-white/5 p-8 rounded-xl backdrop-blur-sm reveal" style="transition-delay: 0.15s;"><div class="text-5xl font-bold mb-4 gradient-text">Top 3</div><h3 class="text-xl font-semibold mb-3">Google Rankings</h3><p class="text-gray-400">Moving from page 4 to the top 3 for crucial keywords with our proven strategies.</p></div>
+            <div class="bg-white/5 p-8 rounded-xl backdrop-blur-sm reveal" style="transition-delay: 0.3s;"><div class="text-5xl font-bold mb-4 gradient-text">20%</div><h3 class="text-xl font-semibold mb-3">Higher Conversions</h3><p class="text-gray-400">Achieved through optimized landing pages and enhanced user experiences.</p></div>
+        </div>
+    </div>
+</section>
+
+<!-- Success Cases Section -->
+<section id="cases" class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 reveal">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Proof in Performance</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">Real results for ambitious businesses. You're next.</p>
+        </div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+            <div class="card-hover bg-white rounded-xl shadow-lg overflow-hidden reveal"><img src="cases/dakwerken-vandendriessche/homepagina-dakwerken-vandendriessche.PNG" alt="Case study for Dakwerken Van den Driessche" class="w-full h-48 object-cover"><div class="p-6"><span class="bg-purple-100 text-purple-800 text-xs font-medium px-2.5 py-1 rounded-full">SEO + Website</span><h3 class="text-xl font-bold text-gray-900 my-2">Dakwerken VDD</h3><p class="text-gray-600 mb-4 text-sm">From page 10 to a top 2 Google ranking, tripling inquiries for key local search terms.</p><a href="https://www.dakwerken-vandendriessche.be" target="_blank" class="text-purple-600 font-medium inline-flex items-center group">View Website <i class="fas fa-arrow-right ml-2 transition-transform group-hover:translate-x-1"></i></a></div></div>
+            <div class="card-hover bg-white rounded-xl shadow-lg overflow-hidden reveal" style="transition-delay: 0.15s;"><img src="bestanden/klanten/dedoncker/dedoncker-website-homepagina.PNG" alt="Case study for De Doncker" class="w-full h-48 object-cover"><div class="p-6"><span class="bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-1 rounded-full">SEO + Redesign</span><h3 class="text-xl font-bold text-gray-900 my-2">De Doncker</h3><p class="text-gray-600 mb-4 text-sm">Transformed a slow, outdated site into a modern, blazing-fast, and optimized web presence.</p><a href="https://www.dedoncker.be" target="_blank" class="text-indigo-600 font-medium inline-flex items-center group">View Website <i class="fas fa-arrow-right ml-2 transition-transform group-hover:translate-x-1"></i></a></div></div>
+            <div class="card-hover bg-white rounded-xl shadow-lg overflow-hidden reveal" style="transition-delay: 0.3s;"><img src="bestanden/klanten/otentik/otentik-website-homepagina.PNG" alt="Case study for Otentik Wellness" class="w-full h-48 object-cover"><div class="p-6"><span class="bg-pink-100 text-pink-800 text-xs font-medium px-2.5 py-1 rounded-full">SEO + Booking System</span><h3 class="text-xl font-bold text-gray-900 my-2">Otentik Wellness</h3><p class="text-gray-600 mb-4 text-sm">+230% visitor increase in 3 months after a site redesign with an integrated booking module.</p><a href="https://www.otentik-wellness.be" target="_blank" class="text-pink-600 font-medium inline-flex items-center group">View Website <i class="fas fa-arrow-right ml-2 transition-transform group-hover:translate-x-1"></i></a></div></div>
+        </div>
+        <div class="text-center reveal"><a href="#" class="primary-btn bg-indigo-600 text-white px-8 py-3 rounded-full font-bold text-center">View All Success Cases</a></div>
+    </div>
+</section>
+
+<!-- AI Section -->
+<section id="ai-solutions" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-2 md:gap-16 items-center">
+            <div class="mb-12 md:mb-0 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Grow Smarter with AI</h2>
+                <p class="text-xl text-gray-600 mb-8">Our advanced AI solutions help you save time, automate processes, and achieve better results.</p>
+                <ul class="space-y-4 mb-8">
+                    <li class="flex items-start"><div class="flex-shrink-0 bg-blue-100 rounded-full p-2 mr-4 mt-1"><i class="fas fa-comments text-blue-600"></i></div><div><h3 class="font-bold text-gray-900">AI Data Analysis</h3><p class="text-gray-600">Support that learns from your data.</p></div></li>
+                    <li class="flex items-start"><div class="flex-shrink-0 bg-blue-100 rounded-full p-2 mr-4 mt-1"><i class="fas fa-pen-fancy text-blue-600"></i></div><div><h3 class="font-bold text-gray-900">AI Copy for Landing Pages</h3><p class="text-gray-600">Optimized text that converts.</p></div></li>
+                    <li class="flex items-start"><div class="flex-shrink-0 bg-blue-100 rounded-full p-2 mr-4 mt-1"><i class="fas fa-film text-blue-600"></i></div><div><h3 class="font-bold text-gray-900">AI-driven Optimizations</h3><p class="text-gray-600">Identify pain points and optimize instantly.</p></div></li>
+                </ul>
+                <!-- BUTTONS ADDED HERE -->
+                <div class="flex flex-col sm:flex-row items-center gap-4 mt-10">
+                    <a href="#contact" data-scroll class="primary-btn bg-indigo-600 text-white px-8 py-3 rounded-full font-bold text-center w-full sm:w-auto">Discover AI Services</a>
+                    <a href="#cases" data-scroll class="secondary-btn border-2 border-indigo-500 text-indigo-600 px-8 py-2.5 rounded-full font-bold text-center hover:bg-indigo-50 transition w-full sm:w-auto">View AI Case Studies</a>
+                </div>
+            </div>
+            <div class="bg-white border border-gray-200/80 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 reveal" style="transition-delay: 0.15s;">
+                <div class="p-4 bg-gradient-to-r from-blue-50 to-blue-100 border-b border-blue-200 flex justify-between items-center"><p id="prompt-titel" class="text-base font-semibold text-blue-800">Loading...</p><button id="copy-prompt-btn" class="text-blue-700 hover:text-white transition-colors bg-blue-200 px-3 py-1.5 rounded-lg border border-blue-300 hover:bg-blue-500 hover:border-blue-600 text-sm font-semibold"><i class="far fa-copy mr-1.5"></i>COPY</button></div>
+                <pre id="prompt-inhoud" class="p-5 text-blue-900/80 text-left text-sm max-h-80 overflow-auto font-mono bg-blue-50/50">Loading...</pre>
+                <div class="p-4 text-center border-t border-blue-200 bg-gray-50"><a href="ai/prompts/prompt-library" class="text-blue-700 font-medium inline-flex items-center group">View Prompt Library <i class="fas fa-arrow-right ml-2 text-sm transition-transform group-hover:translate-x-1"></i></a><p class="text-blue-600/70 text-xs mt-2">500+ prompts available</p></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Blog, Tools & Resources Section -->
+<section id="blog" class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 reveal">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Insights & Resources</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">Stay ahead with our latest articles, tools, and financial insights.</p>
+        </div>
+        <h3 class="text-2xl font-bold text-gray-800 mb-8 reveal">Latest from the Blog</h3>
+        <div id="blog-posts-container" class="grid md:grid-cols-3 gap-8 mb-12"></div>
+        <div class="text-center mb-16 reveal"><a href="/blog" class="secondary-btn border-2 border-gray-300 text-gray-700 px-8 py-3 rounded-full font-bold text-center hover:bg-gray-100 transition">View All Blog Posts</a></div>
+        <h3 class="text-2xl font-bold text-gray-800 mt-16 mb-8 reveal">Free Tools</h3>
+        <div id="tools-posts-container" class="grid md:grid-cols-3 gap-8 mb-12"></div>
+        <div class="text-center mb-16 reveal"><a href="/tools" class="secondary-btn border-2 border-gray-300 text-gray-700 px-8 py-3 rounded-full font-bold text-center hover:bg-gray-100 transition">View All Tools</a></div>
+        <h3 class="text-2xl font-bold text-gray-800 mt-16 mb-8 reveal">Financial Insights</h3>
+        <div id="finances-posts-container" class="grid md:grid-cols-3 gap-8 mb-12"></div>
+        <div class="text-center mb-16 reveal"><a href="/financien" class="secondary-btn border-2 border-gray-300 text-gray-700 px-8 py-3 rounded-full font-bold text-center hover:bg-gray-100 transition">View All Financial Articles</a></div>
+    </div>
+</section>
+
+<!-- About Us Section -->
+<section id="over-ons" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-2 gap-16 items-center">
+            <div class="md:pr-12 reveal">
+                <div class="relative"><img src="bestanden/jitware/jens-eigenaar-jitware.png" alt="Jens Van den Eeckhout, Founder of Jitware" class="rounded-lg shadow-xl w-full"><div class="absolute -bottom-6 -right-6 bg-white p-4 rounded-lg shadow-lg border border-gray-100"><div class="flex items-center"><div class="bg-blue-100 p-3 rounded-full mr-4"><i class="fas fa-user-tie text-blue-600"></i></div><div><p class="font-bold text-gray-800">Jens V.D.E.</p><p class="text-sm text-gray-600">Founder & SEO Expert</p></div></div></div></div>
+            </div>
+            <div class="reveal" style="transition-delay: 0.15s;">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Who We Are & Why We Do It</h2>
+                <p class="text-gray-600 mb-6 leading-relaxed">At Jitware, we believe every business deserves to be discovered. Founded in 2021, we combine creativity with data-driven strategies to deliver measurable results.</p>
+                <p class="text-gray-600 mb-8 leading-relaxed">Our approach is built on transparency, collaboration, and a deep understanding of your unique challenges. We're not just your digital partner; we're an extension of your team, dedicated to uncovering opportunities and engineering solutions for your growth.</p>
+                <div class="flex flex-col sm:flex-row gap-4"><a href="#contact" data-scroll class="primary-btn bg-indigo-600 text-white px-8 py-3 rounded-full font-bold text-center">Let's Talk</a><a href="#" class="secondary-btn border-2 border-gray-300 text-gray-700 px-8 py-3 rounded-full font-bold text-center hover:bg-gray-100 transition">Meet the Team</a></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="py-20 bg-gray-900 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 reveal">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">Ready to Grow?</h2>
+            <p class="text-xl text-gray-400 max-w-3xl mx-auto">Let's build your digital future, together.</p>
+        </div>
+        <div class="max-w-4xl mx-auto reveal" style="transition-delay: 0.15s;">
+            <div class="bg-white rounded-xl shadow-2xl overflow-hidden grid md:grid-cols-2">
+                <div class="p-8 md:p-10 text-gray-900">
+                    <form action="https://api.web3forms.com/submit" method="POST">
+                        <input type="hidden" name="access_key" value="988965d3-e66c-4e18-8668-aadc7e44652e" /><input type="hidden" name="subject" value="Jitware Homepage Contact" /><input type="hidden" name="from_name" value="Jitware" /><input type="hidden" name="redirect" value="https://jitware.be/bedankt.html" />
+                        <div class="mb-5"><label for="name" class="block text-gray-700 font-medium mb-2 text-sm">Name *</label><input type="text" name="name" id="name" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500" required></div>
+                        <div class="mb-5"><label for="email" class="block text-gray-700 font-medium mb-2 text-sm">Email *</label><input type="email" id="email" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500" required></div>
+                        <div class="mb-6"><label for="message" class="block text-gray-700 font-medium mb-2 text-sm">How can we help? *</label><textarea id="message" name="message" rows="4" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500" required></textarea></div>
+                        <button type="submit" class="w-full primary-btn bg-indigo-600 text-white px-8 py-3.5 rounded-full font-bold">Send Inquiry</button>
+                    </form>
+                </div>
+                <div class="bg-indigo-800 p-8 md:p-10 text-white">
+                    <h3 class="text-2xl font-bold mb-6">Contact Info</h3>
+                    <div class="space-y-6">
+                        <div class="flex items-start"><div class="flex-shrink-0 bg-indigo-700 rounded-full p-3 mr-4"><i class="fas fa-map-marker-alt"></i></div><div><h4 class="font-bold">Address</h4><p class="opacity-90">Prinsdaal 63, 9420 Erpe-Mere</p></div></div>
+                        <div class="flex items-start"><div class="flex-shrink-0 bg-indigo-700 rounded-full p-3 mr-4"><i class="fas fa-envelope"></i></div><div><h4 class="font-bold">Email</h4><p class="opacity-90">info@jitware.be</p></div></div>
+                        <div class="flex items-start"><div class="flex-shrink-0 bg-indigo-700 rounded-full p-3 mr-4"><i class="fas fa-phone-alt"></i></div><div><h4 class="font-bold">Phone</h4><p class="opacity-90">+32 472 85 49 46</p></div></div>
+                    </div>
+                    <div class="mt-10 pt-6 border-t border-white/20">
+                        <h4 class="font-bold mb-4">Follow Us</h4>
+                        <div class="flex space-x-4">
+                            <a href="https://www.linkedin.com/in/jensvandeneeckhout/" class="bg-white/10 w-10 h-10 rounded-full flex items-center justify-center hover:bg-white/20 transition"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="https://www.instagram.com/jitware" class="bg-white/10 w-10 h-10 rounded-full flex items-center justify-center hover:bg-white/20 transition"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Smooth Scroll JS -->
+<script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    // --- INITIALIZE SMOOTH SCROLL ---
+    const scroll = new SmoothScroll('a[href*="#"]', {
+        speed: 600,       // How fast to complete the scroll in milliseconds
+        speedAsDuration: true // If true, `speed` is the scroll duration
+    });
+
+    // --- SCROLL-TRIGGERED ANIMATIONS ---
+    const revealElements = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+                observer.unobserve(entry.target); // Animate only once
+            }
+        });
+    }, {
+        threshold: 0.1 // Trigger when 10% of the element is visible
+    });
+    revealElements.forEach(el => observer.observe(el));
+
+    // --- CORE INTERACTIONS ---
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileLinks = mobileMenu.querySelectorAll('a[data-scroll]');
+    if (mobileMenuButton) {
+        mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+        mobileLinks.forEach(link => link.addEventListener('click', () => mobileMenu.classList.add('hidden')));
+    }
+    
+    const heroVisualContainer = document.querySelector('.hero-visual-container');
+    if (heroVisualContainer) {
+        heroVisualContainer.addEventListener('mousemove', (e) => {
+            const card = heroVisualContainer.querySelector('.hero-visual-card');
+            const { left, top, width, height } = heroVisualContainer.getBoundingClientRect();
+            const x = e.clientX - left;
+            const y = e.clientY - top;
+            const rotateX = -1 * ((y - height / 2) / (height / 2)) * 8;
+            const rotateY = ((x - width / 2) / (width / 2)) * 8;
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
+        });
+        heroVisualContainer.addEventListener('mouseleave', () => {
+            const card = heroVisualContainer.querySelector('.hero-visual-card');
+            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+        });
+    }
+
+    // --- DYNAMIC CONTENT ---
+
+    // Testimonial Slider
+    const testimonials = [
+        { quote: "Jens is a very patient and helpful guy to work with. Nothing is too much for him. Always available and works fast! Great guy! Thanks, Jens!", author: "Ann L.", company: "Otentik Wellness", emoji: "💙 Fan of Jens 💙", image: "bestanden/klanten/reviews/ann.png" },
+        { quote: "Exceptional service and attention to detail. Jens helped us by delivering a new website and finding potential new customers for our company, delivering everything on time and within budget.", author: "Sam V", company: "Conell BV", emoji: "🚀 Highly recommended!", image: "bestanden/klanten/reviews/sam.jpg" },
+        { quote: "Professional approach and always willing to go the extra mile. Our website is now better than ever thanks to Jens's expertise.", author: "Femke VDD", company: "Dakwerken VDD", emoji: "✨ Amazing work!", image: "bestanden/klanten/reviews/femke.jpg" }
+    ];
+    let currentTestimonial = 0;
+    const testimonialContainer = document.querySelector('.testimonial-container');
+    const dotsContainer = document.querySelector('.testimonial-dots');
+    
+    function initTestimonials() {
+        if (!testimonialContainer || !dotsContainer) return;
+        dotsContainer.innerHTML = testimonials.map((_, index) => `<button class="w-3 h-3 rounded-full transition-all ${index === 0 ? 'bg-indigo-500' : 'bg-gray-300 hover:bg-gray-400'}"></button>`).join('');
+        const dots = dotsContainer.querySelectorAll('button');
+        dots.forEach((dot, index) => dot.addEventListener('click', () => {
+            currentTestimonial = index;
+            updateTestimonialUI();
+        }));
+        updateTestimonialUI();
+        setInterval(() => {
+            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+            updateTestimonialUI();
+        }, 6000);
+    }
+
+    function updateTestimonialUI() {
+        const testimonial = testimonials[currentTestimonial];
+        testimonialContainer.style.opacity = 0;
+        setTimeout(() => {
+            testimonialContainer.innerHTML = `
+                <img class="photo w-16 h-16 rounded-full object-cover ring-4 ring-indigo-100 shadow-sm" src="${testimonial.image}" alt="${testimonial.author} - ${testimonial.company}">
+                <div class="flex-1">
+                    <div class="flex mb-3">${Array(5).fill('<i class="fas fa-star text-yellow-400 mr-1"></i>').join('')}</div>
+                    <p class="text-gray-600 mb-4 italic leading-relaxed text-lg">"${testimonial.quote}" <span class="block mt-2 text-indigo-500 font-semibold not-italic">${testimonial.emoji}</span></p>
+                    <div class="flex items-center mt-6"><div class="h-px bg-gray-200 flex-1 mr-4"></div><p class="font-bold text-gray-800">${testimonial.author}</p><span class="mx-2 text-gray-400">|</span><p class="text-gray-500">${testimonial.company}</p></div>
+                </div>`;
+            testimonialContainer.style.opacity = 1;
+            dotsContainer.querySelectorAll('button').forEach((dot, index) => {
+                dot.classList.toggle('bg-indigo-500', index === currentTestimonial);
+                dot.classList.toggle('bg-gray-300', index !== currentTestimonial);
+            });
+        }, 300);
+    }
+
+    // AI Prompt Section
+    function initAIPrompt() {
+        fetch('ai/prompts/prompts.json').then(res => res.json()).then(data => {
+            if (!data || data.length === 0) return;
+            const latest = data.sort((a, b) => new Date(b.datum) - new Date(a.datum))[0];
+            document.getElementById('prompt-titel').textContent = latest.titel;
+            document.getElementById('prompt-inhoud').textContent = latest.prompt;
+            document.getElementById('copy-prompt-btn').addEventListener('click', () => {
+                navigator.clipboard.writeText(latest.prompt).then(() => {
+                    const btn = document.getElementById('copy-prompt-btn');
+                    const original = btn.innerHTML;
+                    btn.innerHTML = '<i class="fas fa-check mr-1.5 text-green-500"></i>COPIED!';
+                    setTimeout(() => { btn.innerHTML = original; }, 2000);
+                });
+            });
+        }).catch(console.error);
+    }
+
+    // Generic Card Creator
+    function createCard(item, type, index) {
+        const card = document.createElement('article');
+        card.className = 'card-hover bg-white rounded-xl shadow-lg overflow-hidden reveal';
+        card.style.transitionDelay = `${index * 0.1}s`;
+        const ctaText = type === 'tool' ? 'Use Tool' : 'Read More';
+        card.innerHTML = `
+            <a href="${item.url}" class="block h-full flex flex-col">
+                ${item.foto ? `<div class="h-48 overflow-hidden"><img src="${item.foto}" alt="${item.titel}" class="w-full h-full object-cover"></div>` : ''}
+                <div class="p-6 flex flex-col flex-grow">
+                    <h3 class="text-xl font-bold text-gray-800 hover:text-indigo-600">${item.titel}</h3>
+                    <p class="text-gray-600 mt-2 text-sm flex-grow">${item.beschrijving || ''}</p>
+                    <div class="mt-4 pt-4 border-t border-gray-100">
+                        <span class="text-indigo-600 font-medium inline-flex items-center group">${ctaText} <i class="fas fa-arrow-right ml-2 text-sm transition-transform group-hover:translate-x-1"></i></span>
+                    </div>
+                </div>
+            </a>`;
+        return card;
+    }
+
+    // Fetch and Display Content
+    function fetchAndDisplayContent(jsonPath, containerId, type) {
+        fetch(jsonPath).then(response => response.json()).then(data => {
+            const items = data.sort((a, b) => new Date(b.datum) - new Date(a.datum)).slice(0, 3);
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            container.innerHTML = '';
+            items.forEach((item, index) => {
+                const card = createCard(item, type, index);
+                container.appendChild(card);
+                observer.observe(card); // Make sure the new card is animated
+            });
+        }).catch(error => console.error(`Error loading ${jsonPath}:`, error));
+    }
+
+    // --- INITIALIZE ALL DYNAMIC CONTENT ---
+    initTestimonials();
+    initAIPrompt();
+    fetchAndDisplayContent('blog/blogs.json', 'blog-posts-container', 'blog');
+    fetchAndDisplayContent('tools/tools.json', 'tools-posts-container', 'tool');
+    fetchAndDisplayContent('financien/financien.json', 'finances-posts-container', 'finance');
+});
+</script>
+
+</body>
+</html>
