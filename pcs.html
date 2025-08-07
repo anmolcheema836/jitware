@@ -1,5 +1,4 @@
-
-
+ 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -46,20 +45,9 @@
             box-sizing: border-box;
         }
 
-        #start-screen, #results-screen {
-            text-align: center;
-        }
-
-        h1 {
-            color: var(--primary-color);
-            margin-bottom: 0.5rem;
-        }
-
-        h2 {
-            color: var(--secondary-color);
-            margin-bottom: 2rem;
-            font-weight: 500;
-        }
+        #start-screen, #results-screen { text-align: center; }
+        h1 { color: var(--primary-color); margin-bottom: 0.5rem; }
+        h2 { color: var(--secondary-color); margin-bottom: 2rem; font-weight: 500; }
 
         .instructions {
             text-align: left;
@@ -70,6 +58,23 @@
             padding-left: 15px;
             background-color: #fafafa;
             border-radius: 0 8px 8px 0;
+        }
+
+        #name-input {
+            width: 100%;
+            max-width: 400px;
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+        #name-error {
+            color: var(--wrong-border);
+            height: 20px;
+            display: block;
+            margin-bottom: 10px;
         }
 
         .start-btn {
@@ -83,11 +88,7 @@
             cursor: pointer;
             transition: background-color 0.3s, transform 0.2s;
         }
-
-        .start-btn:hover {
-            background-color: #388e3c;
-            transform: translateY(-2px);
-        }
+        .start-btn:hover { background-color: #388e3c; transform: translateY(-2px); }
 
         #quiz-screen { display: none; }
 
@@ -109,10 +110,7 @@
             font-size: 16px;
         }
         
-        #progress-text {
-            color: var(--secondary-color);
-            font-size: 16px;
-        }
+        #progress-text { color: var(--secondary-color); font-size: 16px; }
 
         #progress-bar-container {
             width: 100%;
@@ -131,27 +129,10 @@
             transition: width 0.3s ease-in-out;
         }
 
-        #question {
-            font-size: 1.2rem;
-            margin-bottom: 1.5rem;
-            font-weight: 500;
-            line-height: 1.5;
-            text-align: left;
-        }
-        #question-subject {
-            font-size: 0.9rem;
-            font-weight: 700;
-            color: var(--secondary-color);
-            margin-bottom: 0.5rem;
-            display: block;
-            text-align: left;
-        }
+        #question { font-size: 1.2rem; margin-bottom: 1.5rem; font-weight: 500; line-height: 1.5; text-align: left; }
+        #question-subject { font-size: 0.9rem; font-weight: 700; color: var(--secondary-color); margin-bottom: 0.5rem; display: block; text-align: left; }
 
-        #options-container {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
+        #options-container { display: flex; flex-direction: column; gap: 12px; }
 
         .option-btn {
             display: flex;
@@ -166,71 +147,25 @@
             transition: background-color 0.2s, border-color 0.2s;
             font-family: 'Lato', sans-serif;
         }
-        .option-prefix {
-            font-weight: bold;
-            margin-right: 10px;
-            color: var(--primary-color);
-        }
-
-        .option-btn:hover:not([disabled]) {
-            background-color: var(--light-bg);
-            border-color: var(--secondary-color);
-        }
-
-        .option-btn.correct {
-            background-color: var(--correct-bg);
-            border-color: var(--correct-border);
-            color: #1b5e20;
-            font-weight: 500;
-        }
+        .option-prefix { font-weight: bold; margin-right: 10px; color: var(--primary-color); }
+        .option-btn:hover:not([disabled]) { background-color: var(--light-bg); border-color: var(--secondary-color); }
+        .option-btn.correct { background-color: var(--correct-bg); border-color: var(--correct-border); color: #1b5e20; font-weight: 500; }
         .option-btn.correct .option-prefix { color: #1b5e20; }
-
-        .option-btn.wrong {
-            background-color: var(--wrong-bg);
-            border-color: var(--wrong-border);
-            color: #b71c1c;
-            font-weight: 500;
-        }
+        .option-btn.wrong { background-color: var(--wrong-bg); border-color: var(--wrong-border); color: #b71c1c; font-weight: 500; }
         .option-btn.wrong .option-prefix { color: #b71c1c; }
 
-        #feedback-container {
-            margin-top: 1.5rem;
-            padding: 15px;
-            border-radius: 8px;
-            font-size: 15px;
-            text-align: left;
-            line-height: 1.6;
-            display: none;
-        }
-
+        #feedback-container { margin-top: 1.5rem; padding: 15px; border-radius: 8px; font-size: 15px; text-align: left; line-height: 1.6; display: none; }
         #feedback-container.correct { background-color: var(--correct-bg); border: 1px solid var(--correct-border); }
         #feedback-container.wrong { background-color: var(--wrong-bg); border: 1px solid var(--wrong-border); }
-
-        #feedback-container b {
-            display: block;
-            margin-bottom: 8px;
-            font-size: 16px;
-        }
+        #feedback-container b { display: block; margin-bottom: 8px; font-size: 16px; }
         
-        .navigation-btns {
-            text-align: right;
-            margin-top: 1.5rem;
-        }
-
-        #next-btn, #restart-btn, #resume-btn {
-            background-color: var(--secondary-color);
-            color: var(--white);
-            border: none;
-            padding: 12px 25px;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-        }
+        .navigation-btns { text-align: right; margin-top: 1.5rem; }
+        #next-btn, #restart-btn, #resume-btn { background-color: var(--secondary-color); color: var(--white); border: none; padding: 12px 25px; border-radius: 8px; font-size: 16px; font-weight: 700; cursor: pointer; }
 
         #results-screen h2 { color: var(--primary-color); }
         #results-summary { font-size: 1.2rem; line-height: 1.8; margin-bottom: 2rem; }
         #results-summary span { font-weight: 700; }
+        #results-status { height: 25px; font-weight: bold; }
         .correct-score { color: var(--correct-border); }
         .wrong-score { color: var(--wrong-border); }
         .unanswered-score { color: var(--light-text); }
@@ -259,9 +194,11 @@
                 <li>This test contains 100 multiple-choice questions.</li>
                 <li>The total time allowed is 2 hours (120 minutes).</li>
                 <li>Each question carries 2 marks. There is no negative marking.</li>
-                <li>Your progress will be saved automatically. If you refresh the page, you can resume the test.</li>
+                <li>Your progress will be saved automatically.</li>
             </ul>
         </div>
+        <input type="text" id="name-input" placeholder="Enter your name to start" required>
+        <div id="name-error"></div>
         <button class="start-btn" id="start-new-btn">Start New Test</button>
         <button class="start-btn" id="resume-btn" style="display: none; background-color: #ff9800; margin-top: 10px;">Resume Test</button>
     </div>
@@ -290,17 +227,21 @@
     <div id="results-screen" style="display: none;">
         <h2>Test Complete!</h2>
         <div id="results-summary">
-            <p>Total Questions: <span id="total-questions-result">100</span></p>
+            <p>Name: <span id="student-name-result"></span></p>
             <p>Correct Answers: <span id="correct-answers-result" class="correct-score"></span></p>
             <p>Incorrect Answers: <span id="wrong-answers-result" class="wrong-score"></span></p>
             <p>Unanswered: <span id="unanswered-result" class="unanswered-score"></span></p>
             <h3>Final Score: <span id="final-score-result" class="final-score"></span> / 200</h3>
         </div>
+        <div id="results-status"></div>
         <button class="start-btn" id="restart-btn">Take Test Again</button>
     </div>
 </div>
 
 <script>
+// IMPORTANT: PASTE YOUR GOOGLE APPS SCRIPT URL HERE
+const SCRIPT_URL = 'PASTE_YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
+
 const allQuestions = [
     // Punjab GK (12 Questions)
     { subject: "Punjab GK", q: "The 'Anand Karaj', the Sikh marriage ceremony, was standardized and given legal recognition through the efforts of which movement?", o: ["Nirankari Movement", "Namdhari (Kuka) Movement", "Singh Sabha Movement", "Akali Movement"], a: 2, e: "The Singh Sabha Movement played a crucial role in standardizing Sikh rituals, which led to the passage of the Anand Karaj Act in 1909, giving legal recognition to the Sikh marriage ceremony." },
@@ -315,7 +256,7 @@ const allQuestions = [
     { subject: "Punjab GK", q: "Which of the following literary figures from Punjab was the youngest recipient of the Sahitya Akademi Award for his work 'Loona'?", o: ["Amrita Pritam", "Shiv Kumar Batalvi", "Nanak Singh", "Gurbaksh Singh Preetlari"], a: 1, e: "Shiv Kumar Batalvi, known as the 'Birha da Sultan', was the youngest to receive the Sahitya Akademi Award in 1967 for his epic verse play 'Loona'." },
     { subject: "Punjab GK", q: "The 'Zafarnama' (Epistle of Victory) was a letter written in Persian by Guru Gobind Singh Ji to which Mughal emperor?", o: ["Akbar", "Jahangir", "Shah Jahan", "Aurangzeb"], a: 3, e: "Guru Gobind Singh Ji wrote the Zafarnama to Emperor Aurangzeb in 1705, indicting him for his treachery and ungodly acts." },
     { subject: "Punjab GK", q: "The historical 'Sarai' structures built by Sher Shah Suri along the Grand Trunk Road served primarily as:", o: ["Military garrisons", "Tax collection points", "Rest houses for travelers and traders", "Royal palaces"], a: 2, e: "Sher Shah Suri built numerous Sarais along the major highways. These were fortified inns or rest houses that provided accommodation, food, and security for travelers, traders, and their goods, which greatly facilitated trade and communication." },
-
+    
     // Indian History (15 Questions)
     { subject: "Indian History", q: "Consider the following findings from the Indus Valley Civilization: 1. Bronze image of a dancing girl 2. Steatite image of a bearded man (Priest-King) 3. A piece of woven cotton. Which of these were found at Mohenjodaro?", o: ["1 only", "1 and 2 only", "2 and 3 only", "1, 2 and 3"], a: 3, e: "All three iconic artifacts - the bronze dancing girl, the steatite 'Priest-King' figure, and evidence of woven cotton - were discovered during the excavations at Mohenjodaro." },
     { subject: "Indian History", q: "The 'Shatapatha Brahmana', one of the most extensive and important Brahmana texts, is associated with which Veda?", o: ["Rig Veda", "Sama Veda", "Yajur Veda", "Atharva Veda"], a: 2, e: "The Shatapatha Brahmana is a detailed prose commentary on the Shukla (White) Yajur Veda, providing elaborate explanations of sacrificial rituals and mythology." },
@@ -416,7 +357,8 @@ const allQuestions = [
     { subject: "World History & IR", q: "The term 'Iron Curtain', used during the Cold War, referred to:", o: ["The military defenses along the Soviet border", "The political, military, and ideological barrier erected by the Soviet Union to seal itself off from the West", "The industrial heartland of Eastern Europe", "The nuclear arms race between the US and USSR"], a: 1, e: "The phrase 'Iron Curtain' was popularized by Winston Churchill to describe the division of Europe into two separate spheres of influence: the democratic West and the communist East, controlled by the Soviet Union." },
     { subject: "World History & IR", q: "The 'Reign of Terror' was a radical and violent phase of which major historical event?", o: ["The American Revolution", "The Russian Revolution", "The French Revolution", "World War I"], a: 2, e: "The Reign of Terror (1793-94) was a period during the French Revolution led by the radical Jacobins under Robespierre, characterized by mass executions of perceived 'enemies of the revolution' by the guillotine." },
     { subject: "World History & IR", q: "The principle of 'sovereign equality of all members' is a foundational principle of which organization?", o: ["European Union (EU)", "NATO", "United Nations (UN)", "G20"], a: 2, e: "Article 2 of the UN Charter states that 'The Organization is based on the principle of the sovereign equality of all its Members.' This is a cornerstone of the modern international system, though the power of the P5 in the Security Council is a notable exception." },
-
+    { subject: "World History & IR", q: "The attack on Pearl Harbor on December 7, 1941, by Japan, led to which significant event in World War II?", o: ["The surrender of Japan", "The entry of the United States into the war", "The beginning of the Battle of Britain", "The invasion of the Soviet Union"], a: 1, e: "The surprise military strike by the Imperial Japanese Navy Air Service upon the United States naval base at Pearl Harbor, Hawaii, was the immediate cause for the United States' formal entry into World War II the next day." },
+    { subject: "World History & IR", q: "The 'Uniting for Peace' resolution is a mechanism that allows which UN organ to take up matters of international peace and security if the Security Council is deadlocked by a veto?", o: ["The Secretary-General", "The International Court of Justice", "The Economic and Social Council (ECOSOC)", "The General Assembly (UNGA)"], a: 3, e: "The 'Uniting for Peace' resolution, adopted in 1950, gives the General Assembly the power to consider a matter and make recommendations for collective measures, including the use of armed force, if the Security Council fails to act due to a P5 veto." },
     { subject: "World History & IR", q: "The 'capability approach', which defines development and justice in terms of enhancing people's freedoms and capabilities, is associated with which theorist?", o: ["John Rawls", "Amartya Sen", "Isaiah Berlin", "Robert Nozick"], a: 1, e: "Nobel laureate Amartya Sen is a key proponent of the capability approach. He argues that development should be seen as a process of expanding the real freedoms and capabilities that people enjoy, not just as economic growth." }
 ];
 
@@ -426,6 +368,9 @@ const finalQuestions = [...allQuestions].sort(() => 0.5 - Math.random());
 const startScreen = document.getElementById('start-screen');
 const quizScreen = document.getElementById('quiz-screen');
 const resultsScreen = document.getElementById('results-screen');
+
+const nameInput = document.getElementById('name-input');
+const nameError = document.getElementById('name-error');
 
 const questionEl = document.getElementById('question');
 const questionSubjectEl = document.getElementById('question-subject');
@@ -446,10 +391,12 @@ let score;
 let timerInterval;
 let timeLeft;
 let userAnswers;
+let studentName;
 
 // Function to handle saving progress to localStorage
 function saveProgress() {
     const progress = {
+        studentName,
         currentQuestionIndex,
         userAnswers,
         timeLeft,
@@ -464,6 +411,7 @@ function loadProgress() {
         resumeBtn.style.display = 'inline-block';
         resumeBtn.onclick = () => {
             const progress = JSON.parse(savedProgress);
+            studentName = progress.studentName;
             currentQuestionIndex = progress.currentQuestionIndex;
             userAnswers = progress.userAnswers;
             timeLeft = progress.timeLeft;
@@ -484,6 +432,13 @@ function clearProgress() {
 }
 
 function startTest() {
+    studentName = nameInput.value.trim();
+    if (studentName === "") {
+        nameError.textContent = "Please enter your name.";
+        return;
+    }
+    nameError.textContent = "";
+
     clearProgress(); // Start a fresh test
     currentQuestionIndex = 0;
     score = 0;
@@ -505,6 +460,7 @@ function startTimer(startTime) {
     timerInterval = setInterval(() => {
         if (timeLeft <= 0) {
             clearInterval(timerInterval);
+            timeLeft = 0; // Ensure it doesn't go negative
             showResults();
             return;
         }
@@ -514,10 +470,7 @@ function startTimer(startTime) {
         const seconds = String(timeLeft % 60).padStart(2, '0');
         timerEl.textContent = `${hours}:${minutes}:${seconds}`;
         
-        // Save time progress every 10 seconds
-        if (timeLeft % 10 === 0) {
-            saveProgress();
-        }
+        if (timeLeft % 5 === 0) saveProgress(); // Save progress more frequently
     }, 1000);
 }
 
@@ -553,10 +506,8 @@ function loadQuestion() {
 
     const userAnswer = userAnswers[currentQuestionIndex];
     if (userAnswer !== null) {
-        // If question was already answered, show the result
         showFeedback(userAnswer);
     } else {
-        // Otherwise, add event listeners for new answer
         Array.from(optionsContainer.children).forEach(button => {
             button.addEventListener('click', selectAnswer);
         });
@@ -591,7 +542,7 @@ function showFeedback(selectedAnswerIndex) {
 
     feedbackExplanationEl.textContent = finalQuestions[currentQuestionIndex].e;
     feedbackContainer.style.display = 'block';
-    feedbackContainer.className = 'feedback-container'; // Reset classes
+    feedbackContainer.className = 'feedback-container';
     if (selectedAnswerIndex === correctAnswerIndex) {
         feedbackContainer.classList.add('correct');
     } else {
@@ -625,13 +576,55 @@ function showResults() {
     const incorrect = userAnswers.filter((ans, index) => ans !== null && ans !== finalQuestions[index].a).length;
     const unanswered = total - correct - incorrect;
 
+    document.getElementById('student-name-result').textContent = studentName;
     document.getElementById('correct-answers-result').textContent = correct;
     document.getElementById('wrong-answers-result').textContent = incorrect;
     document.getElementById('unanswered-result').textContent = unanswered;
     document.getElementById('final-score-result').textContent = `${correct * 2}`;
     
+    saveResultsToSheet(studentName, correct, incorrect, unanswered);
     clearProgress();
 }
+
+function saveResultsToSheet(name, correct, incorrect, unanswered) {
+    const resultsStatusEl = document.getElementById('results-status');
+    if (SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbwg73oQGDAEs0-wt3nzW7719O9sIKnP9FcMV4-YvpJJk6UEerZ8Kcj429md4puSwCXW/exec') {
+        resultsStatusEl.textContent = "Result saving is not configured.";
+        resultsStatusEl.style.color = "orange";
+        return;
+    }
+
+    resultsStatusEl.textContent = "Saving results...";
+    resultsStatusEl.style.color = "var(--light-text)";
+    
+    const formData = new FormData();
+    formData.append('Timestamp', new Date().toISOString());
+    formData.append('Name', name);
+    formData.append('Score (out of 200)', correct * 2);
+    formData.append('Correct', correct);
+    formData.append('Incorrect', incorrect);
+    formData.append('Unanswered', unanswered);
+
+    fetch(SCRIPT_URL, {
+        method: 'POST',
+        body: formData,
+    })
+    .then(response => response.json())
+    .then(data => {
+        if(data.result === 'success') {
+            resultsStatusEl.textContent = "Results saved successfully!";
+            resultsStatusEl.style.color = "var(--correct-border)";
+        } else {
+            throw new Error(data.error || 'Unknown error');
+        }
+    })
+    .catch(error => {
+        console.error('Error saving results:', error);
+        resultsStatusEl.textContent = "Error: Could not save results.";
+        resultsStatusEl.style.color = "var(--wrong-border)";
+    });
+}
+
 
 // Event Listeners for buttons
 startNewBtn.addEventListener('click', startTest);
