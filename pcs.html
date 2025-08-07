@@ -1,0 +1,646 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Punjab PCS Prelims - Full Mock Test</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Lato&display=swap');
+
+        :root {
+            --primary-color: #0d47a1;
+            --secondary-color: #1976d2;
+            --light-bg: #e3f2fd;
+            --dark-text: #212121;
+            --light-text: #757575;
+            --correct-bg: #e8f5e9;
+            --correct-border: #4caf50;
+            --wrong-bg: #ffebee;
+            --wrong-border: #f44336;
+            --white: #ffffff;
+            --border-color: #e0e0e0;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            margin: 0;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        #test-container {
+            width: 100%;
+            max-width: 900px;
+            background-color: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem 2rem;
+            box-sizing: border-box;
+        }
+
+        #start-screen, #results-screen {
+            text-align: center;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        h2 {
+            color: var(--secondary-color);
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+
+        .instructions {
+            text-align: left;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+            color: var(--light-text);
+            border-left: 4px solid var(--secondary-color);
+            padding-left: 15px;
+            background-color: #fafafa;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .start-btn {
+            background-color: var(--correct-border);
+            color: var(--white);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .start-btn:hover {
+            background-color: #388e3c;
+            transform: translateY(-2px);
+        }
+
+        #quiz-screen { display: none; }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        #timer {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 16px;
+        }
+        
+        #progress-text {
+            color: var(--secondary-color);
+            font-size: 16px;
+        }
+
+        #progress-bar-container {
+            width: 100%;
+            height: 10px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+
+        #progress-bar {
+            height: 100%;
+            width: 0%;
+            background-color: var(--correct-border);
+            border-radius: 5px;
+            transition: width 0.3s ease-in-out;
+        }
+
+        #question {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+            line-height: 1.5;
+            text-align: left;
+        }
+        #question-subject {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+            display: block;
+            text-align: left;
+        }
+
+        #options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-btn {
+            display: flex;
+            align-items: baseline;
+            background-color: var(--white);
+            border: 2px solid var(--border-color);
+            padding: 12px 15px;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            text-align: left;
+            transition: background-color 0.2s, border-color 0.2s;
+            font-family: 'Lato', sans-serif;
+        }
+        .option-prefix {
+            font-weight: bold;
+            margin-right: 10px;
+            color: var(--primary-color);
+        }
+
+        .option-btn:hover:not([disabled]) {
+            background-color: var(--light-bg);
+            border-color: var(--secondary-color);
+        }
+
+        .option-btn.correct {
+            background-color: var(--correct-bg);
+            border-color: var(--correct-border);
+            color: #1b5e20;
+            font-weight: 500;
+        }
+        .option-btn.correct .option-prefix { color: #1b5e20; }
+
+        .option-btn.wrong {
+            background-color: var(--wrong-bg);
+            border-color: var(--wrong-border);
+            color: #b71c1c;
+            font-weight: 500;
+        }
+        .option-btn.wrong .option-prefix { color: #b71c1c; }
+
+        #feedback-container {
+            margin-top: 1.5rem;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 15px;
+            text-align: left;
+            line-height: 1.6;
+            display: none;
+        }
+
+        #feedback-container.correct { background-color: var(--correct-bg); border: 1px solid var(--correct-border); }
+        #feedback-container.wrong { background-color: var(--wrong-bg); border: 1px solid var(--wrong-border); }
+
+        #feedback-container b {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+        
+        .navigation-btns {
+            text-align: right;
+            margin-top: 1.5rem;
+        }
+
+        #next-btn, #restart-btn, #resume-btn {
+            background-color: var(--secondary-color);
+            color: var(--white);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        #results-screen h2 { color: var(--primary-color); }
+        #results-summary { font-size: 1.2rem; line-height: 1.8; margin-bottom: 2rem; }
+        #results-summary span { font-weight: 700; }
+        .correct-score { color: var(--correct-border); }
+        .wrong-score { color: var(--wrong-border); }
+        .unanswered-score { color: var(--light-text); }
+        .final-score { color: var(--primary-color); }
+
+        @media (max-width: 600px) {
+            body { padding: 10px; }
+            #test-container { padding: 1rem; }
+            h1 { font-size: 1.5rem; }
+            h2 { font-size: 1.2rem; }
+            #question { font-size: 1.1rem; }
+            .option-btn { font-size: 0.95rem; padding: 10px; }
+            .quiz-header { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+
+<div id="test-container">
+    <div id="start-screen">
+        <h1>Punjab PCS Prelims Mock Test</h1>
+        <h2>General Studies - Paper I</h2>
+        <div class="instructions">
+            <strong>Instructions:</strong>
+            <ul>
+                <li>This test contains 100 multiple-choice questions.</li>
+                <li>The total time allowed is 2 hours (120 minutes).</li>
+                <li>Each question carries 2 marks. There is no negative marking.</li>
+                <li>Your progress will be saved automatically. If you refresh the page, you can resume the test.</li>
+            </ul>
+        </div>
+        <button class="start-btn" id="start-new-btn">Start New Test</button>
+        <button class="start-btn" id="resume-btn" style="display: none; background-color: #ff9800; margin-top: 10px;">Resume Test</button>
+    </div>
+
+    <div id="quiz-screen">
+        <div class="quiz-header">
+            <div id="progress-text">Question 1/100</div>
+            <div id="timer">02:00:00</div>
+        </div>
+        <div id="progress-bar-container">
+            <div id="progress-bar"></div>
+        </div>
+        <div id="question-container">
+            <span id="question-subject"></span>
+            <p id="question"></p>
+        </div>
+        <div id="options-container"></div>
+        <div id="feedback-container">
+            <b>Explanation:</b> <span id="feedback-explanation"></span>
+        </div>
+        <div class="navigation-btns">
+            <button id="next-btn" style="display: none;">Next</button>
+        </div>
+    </div>
+
+    <div id="results-screen" style="display: none;">
+        <h2>Test Complete!</h2>
+        <div id="results-summary">
+            <p>Total Questions: <span id="total-questions-result">100</span></p>
+            <p>Correct Answers: <span id="correct-answers-result" class="correct-score"></span></p>
+            <p>Incorrect Answers: <span id="wrong-answers-result" class="wrong-score"></span></p>
+            <p>Unanswered: <span id="unanswered-result" class="unanswered-score"></span></p>
+            <h3>Final Score: <span id="final-score-result" class="final-score"></span> / 200</h3>
+        </div>
+        <button class="start-btn" id="restart-btn">Take Test Again</button>
+    </div>
+</div>
+
+<script>
+const allQuestions = [
+    // Punjab GK (12 Questions)
+    { subject: "Punjab GK", q: "The 'Anand Karaj', the Sikh marriage ceremony, was standardized and given legal recognition through the efforts of which movement?", o: ["Nirankari Movement", "Namdhari (Kuka) Movement", "Singh Sabha Movement", "Akali Movement"], a: 2, e: "The Singh Sabha Movement played a crucial role in standardizing Sikh rituals, which led to the passage of the Anand Karaj Act in 1909, giving legal recognition to the Sikh marriage ceremony." },
+    { subject: "Punjab GK", q: "The battle of Sobraon, a decisive battle of the First Anglo-Sikh War, was fought on the banks of which river?", o: ["Ravi", "Beas", "Chenab", "Sutlej"], a: 3, e: "The Battle of Sobraon (1846) was fought on the eastern bank of the Sutlej river. The defeat of the Sikh army, partly due to treachery, was a turning point leading to the Treaty of Lahore." },
+    { subject: "Punjab GK", q: "Who is the author of the epic Punjabi tragic romance 'Heer Ranjha' which is considered a masterpiece of Punjabi literature?", o: ["Bulleh Shah", "Waris Shah", "Shah Hussain", "Sultan Bahu"], a: 1, e: "Waris Shah's rendition of 'Heer Ranjha' (c. 1766) is an epic of Punjabi literature and a masterpiece of Qissa poetry, celebrated for its poetic beauty and profound commentary on love and society." },
+    { subject: "Punjab GK", q: "The 'Punjab Termination of Agreements Act, 2004' was passed by the Punjab legislature in the context of which long-standing dispute?", o: ["Chandigarh's status as a Union Territory", "The Sutlej-Yamuna Link (SYL) Canal and water sharing", "Territorial claims on Punjabi-speaking areas in other states", "Control over the Bhakra-Nangal Dam"], a: 1, e: "The Act was a unilateral move by Punjab to annul all inter-state water-sharing agreements concerning the Ravi and Beas waters, primarily in response to the dispute with Haryana over the SYL canal. The Supreme Court later declared the Act unconstitutional." },
+    { subject: "Punjab GK", q: "The traditional string instrument with a single string, iconic in Punjabi folk music, is the:", o: ["Sarangi", "Algozey", "Tumbi", "Chimta"], a: 2, e: "The Tumbi is a traditional single-stringed instrument from Punjab, popularized by folk singers like Lal Chand Yamla Jatt and central to many folk and modern Punjabi songs." },
+    { subject: "Punjab GK", q: "The archaeological site of Sanghol in Punjab is significant for the discovery of relics related to which ancient period?", o: ["Indus Valley Civilization", "Vedic Period", "Kushan Period (Buddhism)", "Gupta Period"], a: 2, e: "Sanghol in Fatehgarh Sahib district is a significant archaeological site. Excavations have revealed a stupa and a monastic complex from the Kushan period, indicating it was a major center of Buddhism." },
+    { subject: "Punjab GK", q: "The 'Miri-Piri' concept, representing temporal (Miri) and spiritual (Piri) authority, was introduced by which Sikh Guru?", o: ["Guru Arjan Dev Ji", "Guru Hargobind Ji", "Guru Tegh Bahadur Ji", "Guru Gobind Singh Ji"], a: 1, e: "After the martyrdom of his father, Guru Arjan Dev Ji, the sixth Guru, Guru Hargobind Ji, introduced the concept of Miri-Piri, wearing two swords to symbolize his dual role as a spiritual and temporal leader." },
+    { subject: "Punjab GK", q: "Jassa Singh Ahluwalia, a prominent Sikh leader during the Misl period, held the title of:", o: ["Punjab Kesari", "Sultan-ul-Qaum", "Sher-e-Punjab", "Jathedar"], a: 1, e: "Jassa Singh Ahluwalia was a highly respected leader and the supreme commander of the Dal Khalsa. After capturing Lahore, he was given the title 'Sultan-ul-Qaum' (King of the Nation) by the Sikhs." },
+    { subject: "Punjab GK", q: "The city of Patiala was founded in the 18th century by:", o: ["Maharaja Ranjit Singh", "Baba Ala Singh", "Nawab Kapur Singh", "Jassa Singh Ahluwalia"], a: 1, e: "Patiala was founded in 1763 by Baba Ala Singh, the founder of the Patiala princely state. He laid the foundation of the Qila Mubarak, around which the city developed." },
+    { subject: "Punjab GK", q: "Which of the following literary figures from Punjab was the youngest recipient of the Sahitya Akademi Award for his work 'Loona'?", o: ["Amrita Pritam", "Shiv Kumar Batalvi", "Nanak Singh", "Gurbaksh Singh Preetlari"], a: 1, e: "Shiv Kumar Batalvi, known as the 'Birha da Sultan', was the youngest to receive the Sahitya Akademi Award in 1967 for his epic verse play 'Loona'." },
+    { subject: "Punjab GK", q: "The 'Zafarnama' (Epistle of Victory) was a letter written in Persian by Guru Gobind Singh Ji to which Mughal emperor?", o: ["Akbar", "Jahangir", "Shah Jahan", "Aurangzeb"], a: 3, e: "Guru Gobind Singh Ji wrote the Zafarnama to Emperor Aurangzeb in 1705, indicting him for his treachery and ungodly acts." },
+    { subject: "Punjab GK", q: "The historical 'Sarai' structures built by Sher Shah Suri along the Grand Trunk Road served primarily as:", o: ["Military garrisons", "Tax collection points", "Rest houses for travelers and traders", "Royal palaces"], a: 2, e: "Sher Shah Suri built numerous Sarais along the major highways. These were fortified inns or rest houses that provided accommodation, food, and security for travelers, traders, and their goods, which greatly facilitated trade and communication." },
+
+    // Indian History (15 Questions)
+    { subject: "Indian History", q: "Consider the following findings from the Indus Valley Civilization: 1. Bronze image of a dancing girl 2. Steatite image of a bearded man (Priest-King) 3. A piece of woven cotton. Which of these were found at Mohenjodaro?", o: ["1 only", "1 and 2 only", "2 and 3 only", "1, 2 and 3"], a: 3, e: "All three iconic artifacts - the bronze dancing girl, the steatite 'Priest-King' figure, and evidence of woven cotton - were discovered during the excavations at Mohenjodaro." },
+    { subject: "Indian History", q: "The 'Shatapatha Brahmana', one of the most extensive and important Brahmana texts, is associated with which Veda?", o: ["Rig Veda", "Sama Veda", "Yajur Veda", "Atharva Veda"], a: 2, e: "The Shatapatha Brahmana is a detailed prose commentary on the Shukla (White) Yajur Veda, providing elaborate explanations of sacrificial rituals and mythology." },
+    { subject: "Indian History", q: "The term 'Triratnas' (Three Jewels) in Jainism, which are necessary for liberation (Moksha), refers to:", o: ["Right Faith, Right Knowledge, Right Conduct", "Right Understanding, Right Thought, Right Action", "Ahimsa, Satya, Asteya", "Buddha, Dhamma, Sangha"], a: 0, e: "In Jainism, the path to liberation is achieved through the 'Triratnas' or Three Jewels: Samyak Darshana (Right Faith), Samyak Jnana (Right Knowledge), and Samyak Charitra (Right Conduct)." },
+    { subject: "Indian History", q: "The 'Indica', an account of Mauryan India, was written by Megasthenes, who was an ambassador of which Greek ruler?", o: ["Alexander the Great", "Seleucus Nicator", "Ptolemy II Philadelphus", "Antiochus I"], a: 1, e: "Megasthenes was the ambassador of the Seleucid king Seleucus Nicator to the court of Chandragupta Maurya in Pataliputra. His work, 'Indica', though lost, provides valuable information about the era." },
+    { subject: "Indian History", q: "The 'Mehrauli Iron Pillar' in Delhi, famous for its rust-resistant quality, is generally associated with which Gupta king?", o: ["Samudragupta", "Chandragupta I", "Kumaragupta I", "Chandragupta II Vikramaditya"], a: 3, e: "The inscription on the Mehrauli Iron Pillar mentions a powerful king named 'Chandra', who is widely identified by historians as Chandragupta II Vikramaditya of the Gupta dynasty." },
+    { subject: "Indian History", q: "Which of the following dynasties was NOT a part of the tripartite struggle for control over Kannauj in the early medieval period?", o: ["Gurjara-Pratiharas", "Palas", "Rashtrakutas", "Cholas"], a: 3, e: "The tripartite struggle for Kannauj involved three major powers of the time: the Gurjara-Pratiharas of Western India, the Palas of Bengal, and the Rashtrakutas of the Deccan. The Cholas were a southern power and were not involved." },
+    { subject: "Indian History", q: "The 'Turkan-i-Chahalgani' or 'Chalisa', a powerful group of forty Turkic nobles, was organized by Iltutmish and was eventually broken by:", o: ["Razia Sultana", "Alauddin Khalji", "Ghiyasuddin Balban", "Muhammad bin Tughlaq"], a: 2, e: "Ghiyasuddin Balban, who himself was a member of the Chalisa, systematically destroyed its power after ascending the throne to restore the authority and prestige of the Sultan." },
+    { subject: "Indian History", q: "The 'Dual Government' in Bengal (1765-1772), which led to administrative breakdown, was introduced by:", o: ["Warren Hastings", "Lord Cornwallis", "Robert Clive", "Hector Munro"], a: 2, e: "After the Battle of Buxar, Robert Clive introduced the Dual Government system. The Company acquired the Diwani (revenue rights) while the Nawab retained the Nizamat (administrative responsibility), creating a system of power without responsibility." },
+    { subject: "Indian History", q: "The 'Ghadar Movement', a revolutionary struggle for India's independence, was primarily organized by:", o: ["Indian soldiers in the British army", "Indian immigrants in North America", "Peasants in Bengal", "Factory workers in Bombay"], a: 1, e: "The Ghadar Movement was founded by Punjabi immigrants, mainly Sikhs, in the USA and Canada (San Francisco) in 1913. Its aim was to overthrow British rule in India through armed rebellion." },
+    { subject: "Indian History", q: "Who was the last Mughal emperor, exiled to Rangoon by the British after the Revolt of 1857?", o: ["Akbar II", "Shah Alam II", "Bahadur Shah Zafar", "Alamgir II"], a: 2, e: "Bahadur Shah Zafar (Bahadur Shah II) was the aged and symbolic leader of the 1857 Revolt. After the British suppressed the uprising, he was captured, tried, and exiled to Rangoon (now Yangon), where he died." },
+    { subject: "Indian History", q: "The famous traveller Ibn Battuta, who wrote the book 'Rihla', visited India during the reign of which Delhi Sultan?", o: ["Alauddin Khalji", "Ghiyasuddin Tughlaq", "Muhammad bin Tughlaq", "Firuz Shah Tughlaq"], a: 2, e: "The Moroccan traveler Ibn Battuta arrived in India in 1333 and spent several years at the court of Muhammad bin Tughlaq, who appointed him as the Qazi (judge) of Delhi. His travelogue, 'Rihla', provides a valuable account of the period." },
+    { subject: "Indian History", q: "Who among the following was the founder of the 'Swaraj Party' in 1923, advocating for 'council entry'?", o: ["Mahatma Gandhi and Jawaharlal Nehru", "Sardar Patel and Rajendra Prasad", "C.R. Das and Motilal Nehru", "Subhas Chandra Bose and Sardar Patel"], a: 2, e: "The Swaraj Party was formed by C.R. Das (President) and Motilal Nehru (Secretary). These 'pro-changers' argued for entering the legislative councils to obstruct British policies from within." },
+    { subject: "Indian History", q: "The 'Poona Pact' of 1932 was an agreement between Mahatma Gandhi and B.R. Ambedkar regarding:", o: ["The demand for complete independence.", "The withdrawal of the Civil Disobedience Movement.", "Joint electorates with reserved seats for the Depressed Classes.", "The participation of Congress in the Third Round Table Conference."], a: 2, e: "The Poona Pact was signed to resolve the issue of the Communal Award, which had granted separate electorates to the Depressed Classes. The pact agreed upon joint electorates but with an increased number of reserved seats for them." },
+    { subject: "Indian History", q: "The Third Buddhist Council was held at Pataliputra under the patronage of which ruler?", o: ["Ajatashatru", "Kalasoka", "Ashoka", "Kanishka"], a: 2, e: "The Third Buddhist Council was convened around 250 BCE at Pataliputra, patronized by Emperor Ashoka and presided over by Mogaliputta Tissa. It aimed to purify the Sangha and led to the compilation of the Abhidhamma Pitaka." },
+    { subject: "Indian History", q: "The 'Subsidiary Alliance' system, which was a major tool for British expansion, was perfected and widely used by which Governor-General?", o: ["Robert Clive", "Lord Wellesley", "Lord Dalhousie", "Warren Hastings"], a: 1, e: "Lord Wellesley (1798-1805) was the Governor-General who extensively used the Subsidiary Alliance to bring Indian states under British control by making them dependent on the company for protection." },
+    
+    // Indian Polity (15 Questions)
+    { subject: "Indian Polity", q: "Which of the following is NOT a 'basic feature' of the Indian Constitution as per the Kesavananda Bharati case judgment?", o: ["Supremacy of the Constitution", "Federal character of the Constitution", "Rule of Law", "Presidential form of government"], a: 3, e: "The Indian Constitution establishes a Parliamentary form of government, not a Presidential one. Supremacy of the Constitution, Federalism, and Rule of Law are all considered part of the 'basic structure'." },
+    { subject: "Indian Polity", q: "Article 17 of the Indian Constitution deals with:", o: ["Abolition of Titles", "Equality of opportunity in public employment", "Abolition of Untouchability", "Right to Freedom of Speech"], a: 2, e: "Article 17 explicitly abolishes 'Untouchability' and forbids its practice in any form. The enforcement of any disability arising out of 'Untouchability' is an offence punishable in accordance with law." },
+    { subject: "Indian Polity", q: "Consider the following statements regarding Money Bills: 1. A Money Bill can only be introduced in the Lok Sabha. 2. The Rajya Sabha can reject or amend a Money Bill. 3. The Speaker of the Lok Sabha has the final authority to certify a bill as a Money Bill. Which of the statements are correct?", o: ["1 and 3 only", "2 and 3 only", "1 and 2 only", "1, 2 and 3"], a: 0, e: "Statement 2 is incorrect. The Rajya Sabha has limited powers regarding a Money Bill; it can only make recommendations, which the Lok Sabha may or may not accept. It cannot reject or amend the bill. It must return the bill within 14 days." },
+    { subject: "Indian Polity", q: "The 61st Constitutional Amendment Act, 1989 is significant because it:", o: ["Introduced the Anti-Defection Law.", "Granted constitutional status to Panchayats.", "Reduced the voting age from 21 years to 18 years.", "Abolished the Right to Property as a Fundamental Right."], a: 2, e: "The 61st Amendment Act amended Article 326 of the Constitution to lower the voting age for elections to the Lok Sabha and state legislative assemblies from 21 to 18 years." },
+    { subject: "Indian Polity", q: "A 'No-Confidence Motion' against the Union Government can be initiated in which house of the Parliament?", o: ["Only in the Lok Sabha", "Only in the Rajya Sabha", "In either house of Parliament", "In a joint sitting of both houses"], a: 0, e: "According to Article 75(3), the Council of Ministers is collectively responsible to the Lok Sabha. Therefore, a motion of no-confidence can only be introduced and passed in the Lok Sabha." },
+    { subject: "Indian Polity", q: "The Uniform Civil Code for all citizens is a Directive Principle of State Policy mentioned under which Article?", o: ["Article 40", "Article 44", "Article 48A", "Article 51"], a: 1, e: "Article 44 of the Constitution states that 'The State shall endeavour to secure for the citizens a uniform civil code throughout the territory of India.' It is a part of the Liberal-Intellectual DPSP." },
+    { subject: "Indian Polity", q: "Who administers the oath of office to the Governor of a state?", o: ["The President of India", "The Chief Minister of the state", "The Chief Justice of the concerned State High Court", "The Speaker of the State Legislative Assembly"], a: 2, e: "The oath of office to the Governor is administered by the Chief Justice of the High Court of the concerned state. In his absence, the senior-most available judge of that court administers the oath." },
+    { subject: "Indian Polity", q: "The power to adjudicate disputes relating to the waters of inter-state rivers is vested in the:", o: ["Supreme Court under its original jurisdiction", "President of India", "Parliament of India", "A special tribunal established by the Parliament"], a: 2, e: "Article 262 of the Constitution empowers the Parliament to provide for the adjudication of any dispute with respect to the use, distribution, or control of the waters of any inter-state river. It can also bar the jurisdiction of the Supreme Court and other courts in such disputes." },
+    { subject: "Indian Polity", q: "Which committee is often referred to as the 'watchdog of the public purse' and examines the reports of the Comptroller and Auditor General (CAG)?", o: ["Estimates Committee", "Committee on Public Undertakings", "Public Accounts Committee (PAC)", "Rules Committee"], a: 2, e: "The Public Accounts Committee (PAC) examines the annual audit reports of the CAG to scrutinize the appropriation of sums granted by Parliament for the expenditure of the Government of India, ensuring financial accountability." },
+    { subject: "Indian Polity", q: "The PESA Act of 1996 (Panchayats Extension to Scheduled Areas) primarily aims to:", o: ["Provide special financial packages for tribal areas.", "Extend the provisions of Part IX of the Constitution to Fifth Schedule areas with certain modifications.", "Create separate states for tribal populations.", "Reserve all seats in Panchayats for Scheduled Tribes in these areas."], a: 1, e: "The PESA Act was enacted to ensure self-governance through traditional Gram Sabhas for people living in the Scheduled Areas of India. It recognizes their traditional rights and empowers the Gram Sabha significantly." },
+    { subject: "Indian Polity", q: "The writ of 'Habeas Corpus' is issued to:", o: ["Command a public official to perform their duty.", "Prevent a lower court from exceeding its jurisdiction.", "Produce the body of a person who has been illegally detained before the court.", "Inquire into the legality of a claim of a person to a public office."], a: 2, e: "Habeas Corpus, literally 'to have the body of', is a writ requiring a person under arrest to be brought before a judge or into court, especially to secure the person's release unless lawful grounds are shown for their detention." },
+    { subject: "Indian Polity", q: "The President's Rule can be imposed in a state under Article 356 on the basis of a report from the Governor or otherwise, if the President is satisfied that:", o: ["The state has failed to comply with directions from the Centre.", "The law and order situation in the state has deteriorated.", "The government of the state cannot be carried on in accordance with the provisions of the Constitution.", "The ruling party in the state has lost the majority."], a: 2, e: "The precise constitutional ground for imposing President's Rule under Article 356 is the 'failure of constitutional machinery', meaning the state government cannot function according to the Constitution." },
+    { subject: "Indian Polity", q: "Which of the following is NOT a federal feature of the Indian Constitution?", o: ["Written Constitution", "Division of Powers", "Independent Judiciary", "Single Citizenship"], a: 3, e: "Single Citizenship is a unitary feature, as in a typical federation (like the USA), citizens have dual citizenship (federal and state). A written constitution, division of powers, and an independent judiciary are key federal features." },
+    { subject: "Indian Polity", q: "The Vice-President of India is the ex-officio Chairman of the:", o: ["Lok Sabha", "Rajya Sabha", "NITI Aayog", "Inter-State Council"], a: 1, e: "According to Article 64 of the Constitution, the Vice-President of India serves as the ex-officio (by virtue of the office) Chairman of the Rajya Sabha (Council of States)." },
+    { subject: "Indian Polity", q: "The Model Code of Conduct (MCC) for elections in India is enforced by:", o: ["The Parliament of India", "The Supreme Court of India", "The President of India", "The Election Commission of India"], a: 3, e: "The Model Code of Conduct is a set of guidelines issued by the Election Commission of India to regulate the conduct of political parties and candidates during elections to ensure free and fair elections. It comes into effect from the date the election schedule is announced." },
+
+    // Economy (12 Questions)
+    { subject: "Economy", q: "The 'LPG' reforms of 1991 in India stand for:", o: ["Land, Power, and Governance", "Labour, Production, and Growth", "Liberalisation, Privatisation, and Globalisation", "Liquidity, Profitability, and Government"], a: 2, e: "The 1991 New Economic Policy is famously known as the LPG reforms, which marked a shift towards a more market-oriented economy through Liberalisation, Privatisation, and Globalisation." },
+    { subject: "Economy", q: "Which of the following bodies is responsible for implementing the monetary policy in India?", o: ["Ministry of Finance", "NITI Aayog", "Reserve Bank of India (RBI)", "Securities and Exchange Board of India (SEBI)"], a: 2, e: "The Reserve Bank of India (RBI), through its Monetary Policy Committee (MPC), is responsible for formulating and implementing the monetary policy with the primary objective of maintaining price stability." },
+    { subject: "Economy", q: "Consider the following statements regarding the Goods and Services Tax (GST): 1. It is a destination-based consumption tax. 2. It has subsumed most of the central and state indirect taxes. 3. The GST Council is chaired by the Union Finance Minister. Which of the statements are correct?", o: ["1 and 2 only", "2 and 3 only", "1 and 3 only", "1, 2 and 3"], a: 3, e: "All three statements are correct. GST is a destination-based tax, has replaced a multitude of indirect taxes, and the GST Council, which decides on GST rates and rules, is headed by the Union Finance Minister." },
+    { subject: "Economy", q: "The 'Make in India' initiative, launched in 2014, primarily aims to:", o: ["Boost agricultural exports.", "Promote India as a global manufacturing hub.", "Develop rural infrastructure.", "Increase FDI in the service sector."], a: 1, e: "The 'Make in India' program was launched to encourage companies to manufacture their products in India and to make India a global hub for manufacturing, design, and innovation." },
+    { subject: "Economy", q: "In the context of banking, what does NPA stand for?", o: ["Net Profit Account", "New Pension Asset", "Non-Performing Asset", "National Payment Authority"], a: 2, e: "A Non-Performing Asset (NPA) is a loan or advance for which the principal or interest payment remained overdue for a period of 90 days. NPAs are a major concern for the health of the banking sector." },
+    { subject: "Economy", q: "The 'Blue Revolution' in India is associated with the development of which sector?", o: ["Dairy", "Poultry", "Fisheries and Aquaculture", "Oilseeds"], a: 2, e: "The Blue Revolution refers to the period of rapid increase in the production of fish and marine products through the adoption of new technologies in aquaculture and fisheries." },
+    { subject: "Economy", q: "The 'PM-KISAN' (Pradhan Mantri Kisan Samman Nidhi) scheme provides:", o: ["Crop insurance to farmers at a low premium.", "Interest-free loans for agricultural purposes.", "A direct income support of ₹6,000 per year to farmer families.", "Subsidized fertilizers and seeds."], a: 2, e: "The PM-KISAN scheme is a central sector scheme that provides an income support of ₹6,000 per year in three equal installments to all land-holding farmer families, irrespective of the size of their landholdings." },
+    { subject: "Economy", q: "The 'ease of doing business' index is released annually by which international organization?", o: ["World Trade Organization (WTO)", "International Monetary Fund (IMF)", "World Economic Forum (WEF)", "World Bank Group"], a: 3, e: "The World Bank Group published the 'Doing Business' report, which included the 'ease of doing business' index, ranking countries on various parameters related to starting and operating a business. (Note: The report was discontinued in 2021, but the concept is still relevant)." },
+    { subject: "Economy", q: "An 'escrow account' is a financial instrument that is:", o: ["An account that provides high interest rates on savings.", "A bank account used for routing funds through tax havens.", "A third-party account that holds and disburses funds only when pre-specified conditions are met.", "An account specifically for trading in the stock market."], a: 2, e: "An escrow account is a legal arrangement where a third party temporarily holds money or property until a particular condition has been met (such as the fulfillment of a purchase agreement), safeguarding both the buyer and the seller." },
+    { subject: "Economy", q: "The 'Ayushman Bharat - Pradhan Mantri Jan Arogya Yojana' (PM-JAY) is a scheme that provides:", o: ["Free primary healthcare at Health and Wellness Centres.", "A health insurance cover of up to ₹5 lakh per family per year for secondary and tertiary care.", "Cash incentives for institutional deliveries.", "Free medicines for chronic diseases."], a: 1, e: "PM-JAY is a national health insurance scheme that aims to provide a health cover of ₹5 lakh per family per year for hospitalization to over 10 crore poor and vulnerable families." },
+    { subject: "Economy", q: "Which of the following is an example of a direct tax?", o: ["Goods and Services Tax (GST)", "Customs Duty", "Corporate Income Tax", "Excise Duty"], a: 2, e: "A direct tax is a tax that is paid directly by the person or organization on whom it is levied. Corporate Income Tax is levied on the profits of companies. GST, Customs, and Excise are indirect taxes." },
+    { subject: "Economy", q: "The 'Dahsala' system of land revenue was a major reform during the reign of:", o: ["Sher Shah Suri", "Akbar", "Alauddin Khalji", "Firoz Shah Tughlaq"], a: 1, e: "The Dahsala or Zabti system was the land revenue system introduced by Emperor Akbar. It was further developed by his finance minister, Raja Todar Mal, and was based on calculating the average produce and prices over the last ten years." },
+
+    // Geography (15 Questions)
+    { subject: "Geography", q: "The Palk Strait separates India from which country?", o: ["Maldives", "Sri Lanka", "Indonesia", "Myanmar"], a: 1, e: "The Palk Strait is a strait between the Tamil Nadu state of India and the Jaffna District of the Northern Province of Sri Lanka." },
+    { subject: "Geography", q: "The Coriolis effect, which deflects winds to the right in the Northern Hemisphere and to the left in the Southern Hemisphere, is caused by:", o: ["The Earth's magnetic field", "The gravitational pull of the moon", "The Earth's rotation on its axis", "The differential heating of the Earth's surface"], a: 2, e: "The Coriolis effect is an inertial force that acts on objects in motion within a frame of reference that is rotating with respect to an inertial frame. On Earth, it is caused by the planet's rotation." },
+    { subject: "Geography", q: "The Saddle Peak, the highest point in the Andaman and Nicobar Islands, is located in:", o: ["Great Nicobar", "Little Andaman", "South Andaman", "North Andaman"], a: 3, e: "Saddle Peak is located on North Andaman Island. It is part of the Saddle Peak National Park." },
+    { subject: "Geography", q: "Which of the following soil types is known for its 'self-ploughing' characteristic due to its high clay content and tendency to develop deep cracks when dry?", o: ["Alluvial Soil", "Red Soil", "Laterite Soil", "Black Soil (Regur)"], a: 3, e: "Black soils are rich in clay and swell when wet, becoming sticky. When they dry, they shrink and develop deep, wide cracks. This is referred to as 'self-ploughing' as it helps in aeration." },
+    { subject: "Geography", q: "Which Indian state has the longest coastline?", o: ["Andhra Pradesh", "Tamil Nadu", "Gujarat", "Maharashtra"], a: 2, e: "With its highly indented coastline, Gujarat has the longest coastline in India, stretching for about 1,600 kilometers." },
+    { subject: "Geography", q: "The 'Roaring Forties', 'Furious Fifties', and 'Shrieking Sixties' are terms used to describe which winds?", o: ["Trade Winds in the Northern Hemisphere", "Westerlies in the Southern Hemisphere", "Polar Easterlies in the Arctic", "Monsoon winds in the Indian Ocean"], a: 1, e: "These are strong westerly winds found in the Southern Hemisphere, generally between the latitudes of 40 and 70 degrees south. They are strong because there is very little landmass to slow them down." },
+    { subject: "Geography", q: "The Kanchenjunga peak, the third highest in the world, is located on the border of:", o: ["India and Nepal", "India and Bhutan", "India and China", "India and Myanmar"], a: 0, e: "Kanchenjunga is located in the Himalayas on the border between Sikkim state, India, and eastern Nepal." },
+    { subject: "Geography", q: "Which of the following is a cold ocean current?", o: ["Gulf Stream", "Kuroshio Current", "Labrador Current", "North Atlantic Drift"], a: 2, e: "The Labrador Current is a cold current that flows south from the Arctic Ocean along the coast of Labrador and Newfoundland, meeting the warm Gulf Stream." },
+    { subject: "Geography", q: "The Loktak Lake, famous for its 'phumdis' (floating islands), is located in which state?", o: ["Assam", "Manipur", "Mizoram", "Meghalaya"], a: 1, e: "Loktak Lake is the largest freshwater lake in Northeast India, located in the state of Manipur. It is famous for the floating circular swamps called phumdis. The Keibul Lamjao National Park, the world's only floating park, is on this lake." },
+    { subject: "Geography", q: "The point within the Earth where an earthquake rupture starts is the:", o: ["Epicenter", "Focus (Hypocenter)", "Fault Line", "Tectonic Plate"], a: 1, e: "The Focus, or Hypocenter, is the actual location within the Earth where the earthquake originates. The Epicenter is the point on the Earth's surface directly above the focus." },
+    { subject: "Geography", q: "Tropical cyclones do not form near the equator because:", o: ["The sea surface temperature is too low.", "The Coriolis force is too weak.", "The air is too stable and does not rise.", "There is no moisture available."], a: 1, e: "The Coriolis force, which is necessary to initiate the spinning motion of a cyclone, is negligible at the equator and increases towards the poles. This is why cyclones form away from the 0-5 degree latitude belt." },
+    { subject: "Geography", q: "The Deccan Traps of India were formed by:", o: ["Glacial deposition", "Fissure type volcanic eruption", "Folding of the Earth's crust", "Marine transgression"], a: 1, e: "The Deccan Traps are a large igneous province formed by massive flood basalt eruptions that occurred towards the end of the Cretaceous period. These were fissure-type eruptions, where lava flowed out from long cracks in the Earth's crust." },
+    { subject: "Geography", q: "Which of the following rivers is NOT a tributary of the Ganga?", o: ["Yamuna", "Ghaghara", "Son", "Indravati"], a: 3, e: "The Yamuna, Ghaghara, and Son are major tributaries of the Ganga. The Indravati river is a major tributary of the Godavari river in Central India." },
+    { subject: "Geography", q: "The layer of the atmosphere where temperature decreases with altitude at an average rate of 6.5°C per kilometer is the:", o: ["Stratosphere", "Troposphere", "Mesosphere", "Thermosphere"], a: 1, e: "The Troposphere is heated from the ground up, so temperature normally decreases with an increase in altitude. This rate of decrease is known as the normal lapse rate." },
+    { subject: "Geography", q: "The Strait of Gibraltar connects the Atlantic Ocean with the:", o: ["Red Sea", "Black Sea", "Mediterranean Sea", "North Sea"], a: 2, e: "The Strait of Gibraltar is a narrow strait that connects the Atlantic Ocean to the Mediterranean Sea and separates the Iberian Peninsula in Europe from Morocco in Africa." },
+
+    // Environment (10 Questions)
+    { subject: "Environment", q: "The Montreal Protocol (1987) is an international treaty designed to protect the ozone layer by phasing out the production of which substances?", o: ["Greenhouse gases like CO2", "Chlorofluorocarbons (CFCs)", "Heavy metals like lead and mercury", "Persistent organic pollutants"], a: 1, e: "The Montreal Protocol is a landmark environmental agreement that successfully regulates the production and consumption of ozone-depleting substances, primarily chlorofluorocarbons (CFCs)." },
+    { subject: "Environment", q: "Eutrophication in a lake is the process of:", o: ["The lake drying up due to excessive evaporation.", "The lake becoming overly enriched with nutrients, leading to algal blooms and oxygen depletion.", "The gradual filling of the lake with sediment.", "The contamination of the lake with toxic heavy metals."], a: 1, e: "Eutrophication is caused by nutrient pollution (from fertilizers, sewage) which stimulates excessive growth of algae. When the algae die and decompose, they consume dissolved oxygen, leading to hypoxia and the death of fish and other aquatic life." },
+    { subject: "Environment", q: "Project Tiger, a major wildlife conservation initiative, was launched in India in which year?", o: ["1972", "1973", "1980", "1986"], a: 1, e: "Project Tiger was launched on April 1, 1973, by the Government of India to protect the Bengal tiger in its natural habitats and to ensure the maintenance of a viable tiger population." },
+    { subject: "Environment", q: "The concept of 'Carbon Credit' is associated with which international agreement?", o: ["Rio Earth Summit", "Stockholm Conference", "Kyoto Protocol", "Paris Agreement"], a: 2, e: "The concept of carbon credits and carbon markets, particularly the Clean Development Mechanism (CDM), was formalized under the Kyoto Protocol to provide a flexible way for developed countries to meet their emission reduction targets." },
+    { subject: "Environment", q: "Which of the following is considered a primary indicator of air pollution, especially sulphur dioxide, as it is very sensitive to it?", o: ["Ferns", "Algae", "Lichens", "Fungi"], a: 2, e: "Lichens (a composite organism of algae and fungi) are excellent bio-indicators of air quality because they absorb water and nutrients from the atmosphere and are very sensitive to pollutants like sulphur dioxide." },
+    { subject: "Environment", q: "The Biological Diversity Act of India was enacted in which year to give effect to the provisions of the Convention on Biological Diversity (CBD)?", o: ["1986", "1992", "2002", "2010"], a: 2, e: "The Biological Diversity Act was passed by the Indian Parliament in 2002. It aims to conserve biodiversity, ensure its sustainable use, and enable fair and equitable sharing of benefits arising from the use of genetic resources." },
+    { subject: "Environment", q: "The 'Chipko Movement' in the 1970s was a significant environmental movement primarily aimed at:", o: ["Preventing the construction of large dams", "Protecting trees from being felled in the Himalayas", "Protesting against air pollution from industries", "Cleaning the Ganga river"], a: 1, e: "The Chipko Movement, which started in Uttarakhand, was a non-violent social and ecological movement where rural villagers, especially women, hugged trees to prevent them from being cut down by logging contractors." },
+    { subject: "Environment", q: "In an ecosystem, the trophic level of a primary consumer is:", o: ["First trophic level", "Second trophic level", "Third trophic level", "Fourth trophic level"], a: 1, e: "The first trophic level consists of producers (plants). The second trophic level consists of primary consumers (herbivores) that eat the producers." },
+    { subject: "Environment", q: "The Ramsar Convention is an international treaty for the conservation and sustainable use of:", o: ["Forests", "Deserts", "Wetlands", "Endangered Species"], a: 2, e: "The Ramsar Convention, signed in Ramsar, Iran, in 1971, provides the framework for national action and international cooperation for the conservation and wise use of wetlands and their resources." },
+    { subject: "Environment", q: "What does 'Biochemical Oxygen Demand' (BOD) measure in a water body?", o: ["The amount of oxygen present in the water.", "The amount of oxygen required by aerobic bacteria to decompose organic waste.", "The concentration of toxic chemicals.", "The level of biodiversity."], a: 1, e: "BOD is a key indicator of water pollution. It measures the amount of dissolved oxygen needed by aerobic microorganisms to break down the organic material present in a water sample. A high BOD indicates a high level of organic pollution." },
+    
+    // Everyday Science & Tech (13 Questions)
+    { subject: "Everyday Science & Tech", q: "The conversion of a solid directly into a gas without passing through the liquid state is called:", o: ["Evaporation", "Condensation", "Sublimation", "Melting"], a: 2, e: "Sublimation is the direct phase transition from solid to gas. Common examples include dry ice (solid CO2), camphor, and naphthalene balls." },
+    { subject: "Everyday Science & Tech", q: "Milk of Magnesia, used as an antacid to relieve indigestion, is a common name for which chemical compound?", o: ["Magnesium Carbonate", "Magnesium Oxide", "Magnesium Hydroxide", "Magnesium Sulphate"], a: 2, e: "Milk of Magnesia is a suspension of Magnesium Hydroxide (Mg(OH)₂). It is a base that neutralizes the excess hydrochloric acid in the stomach." },
+    { subject: "Everyday Science & Tech", q: "Why does a ship made of iron float, while an iron nail sinks in water?", o: ["The ship has less mass than the nail.", "The ship is painted with waterproof paint.", "The ship displaces a volume of water whose weight is equal to the ship's weight.", "The density of the ship's iron is less than the nail's iron."], a: 2, e: "This is explained by Archimedes' Principle. The hollow shape of the ship displaces a large volume of water. The buoyant force, which is equal to the weight of the displaced water, becomes large enough to support the entire weight of the ship." },
+    { subject: "Everyday Science & Tech", q: "Which part of the human brain is responsible for maintaining posture, balance, and coordination of voluntary movements?", o: ["Cerebrum", "Cerebellum", "Medulla Oblongata", "Hypothalamus"], a: 1, e: "The Cerebellum, located at the back of the brain, is crucial for coordinating voluntary muscle movements, maintaining posture, and ensuring balance." },
+    { subject: "Everyday Science & Tech", q: "The 'powerhouse of the cell', where cellular respiration takes place to produce ATP, is the:", o: ["Nucleus", "Ribosome", "Mitochondrion", "Lysosome"], a: 2, e: "Mitochondria are organelles responsible for generating most of the cell's supply of adenosine triphosphate (ATP), which is used as a source of chemical energy. Hence, they are called the 'powerhouse of the cell'." },
+    { subject: "Everyday Science & Tech", q: "Which of the following is a communicable disease caused by a virus and transmitted by the Aedes mosquito?", o: ["Malaria", "Tuberculosis", "Dengue", "Cholera"], a: 2, e: "Dengue fever is a viral disease transmitted by the bite of the Aedes mosquito. Malaria is caused by a protozoan, TB and Cholera are caused by bacteria." },
+    { subject: "Everyday Science & Tech", q: "What is the primary purpose of an electric fuse in a circuit?", o: ["To increase the current", "To store electric charge", "To protect appliances by breaking the circuit during excessive current flow", "To convert AC to DC"], a: 2, e: "A fuse is a safety device containing a wire with a low melting point. If the current exceeds a safe level, the wire melts due to the heating effect of the current, breaking the circuit and preventing damage to the appliances." },
+    { subject: "Everyday Science & Tech", q: "The twinkling of stars is a phenomenon caused by:", o: ["Atmospheric reflection", "Atmospheric refraction", "Dispersion of light", "Scattering of light"], a: 1, e: "Light from a distant star passes through the Earth's atmosphere, which has varying densities. This causes the light to bend or refract continuously and randomly, making the star appear to twinkle." },
+    { subject: "Everyday Science & Tech", q: "In the context of mobile technology, what does LTE stand for?", o: ["Long Transmission Efficiency", "Light Transmitting Emitter", "Long-Term Evolution", "Low-Tension Energy"], a: 2, e: "LTE stands for Long-Term Evolution. It is the standard for high-speed wireless communication for mobile devices and data terminals, often marketed as 4G LTE." },
+    { subject: "Everyday Science & Tech", q: "Galvanization is a process of coating iron with a layer of which metal to prevent rusting?", o: ["Copper", "Tin", "Aluminium", "Zinc"], a: 3, e: "Galvanization involves applying a protective coating of zinc to iron or steel. Zinc is more reactive than iron and acts as a sacrificial metal, corroding first and protecting the iron underneath." },
+    { subject: "Everyday Science & Tech", q: "The deficiency of Iodine in the diet leads to which condition?", o: ["Scurvy", "Anaemia", "Goitre", "Rickets"], a: 2, e: "Iodine is essential for the synthesis of thyroid hormones. Its deficiency causes the thyroid gland in the neck to swell, a condition known as Goitre." },
+    { subject: "Everyday Science & Tech", q: "Optical fibres, used for high-speed telecommunication, work on the principle of:", o: ["Refraction", "Diffraction", "Total Internal Reflection", "Scattering"], a: 2, e: "Optical fibres transmit light pulses over long distances with minimal loss. This is achieved through Total Internal Reflection, where light travelling in a denser medium strikes the boundary with a rarer medium at an angle greater than the critical angle and is completely reflected back." },
+    { subject: "Everyday Science & Tech", q: "Which gland in the human body is known as the 'master gland' because it controls the functions of many other endocrine glands?", o: ["Thyroid Gland", "Adrenal Gland", "Pancreas", "Pituitary Gland"], a: 3, e: "The Pituitary Gland, located at the base of the brain, is called the master gland because it produces hormones that regulate the functions of other endocrine glands like the thyroid, adrenals, and reproductive glands." },
+
+    // World History & IR (10 Questions)
+    { subject: "World History & IR", q: "The Treaty of Versailles, which ended World War I, imposed harsh terms on which country?", o: ["Russia", "Austria-Hungary", "Germany", "Ottoman Empire"], a: 2, e: "The Treaty of Versailles held Germany responsible for the war (the 'War Guilt Clause') and imposed severe penalties, including massive reparations, territorial losses, and military restrictions, which created deep resentment." },
+    { subject: "World History & IR", q: "The Non-Aligned Movement (NAM) was founded during the Cold War with the primary objective of:", o: ["Forming a military alliance against NATO", "Promoting communism globally", "Allowing developing countries to remain independent of the two superpower blocs", "Creating a new global economic order"], a: 2, e: "NAM was formed by leaders of newly independent countries (like Nehru of India, Nasser of Egypt, Tito of Yugoslavia) to steer a course independent of the US-led Western Bloc and the Soviet-led Eastern Bloc during the Cold War." },
+    { subject: "World History & IR", q: "The Industrial Revolution first began in the 18th century in which country, primarily in the textile industry?", o: ["Germany", "France", "Great Britain", "USA"], a: 2, e: "The Industrial Revolution originated in Great Britain due to a combination of factors, including abundant coal and iron, capital for investment, a stable government, and key technological innovations, starting with the mechanization of the textile industry." },
+    { subject: "World History & IR", q: "Which of the following international organizations is primarily responsible for maintaining international peace and security?", o: ["The World Bank", "The International Monetary Fund (IMF)", "The United Nations Security Council (UNSC)", "The World Health Organization (WHO)"], a: 2, e: "According to the UN Charter, the United Nations Security Council (UNSC) has the primary responsibility for the maintenance of international peace and security. Its decisions are binding on all member states." },
+    { subject: "World History & IR", q: "The term 'Iron Curtain', used during the Cold War, referred to:", o: ["The military defenses along the Soviet border", "The political, military, and ideological barrier erected by the Soviet Union to seal itself off from the West", "The industrial heartland of Eastern Europe", "The nuclear arms race between the US and USSR"], a: 1, e: "The phrase 'Iron Curtain' was popularized by Winston Churchill to describe the division of Europe into two separate spheres of influence: the democratic West and the communist East, controlled by the Soviet Union." },
+    { subject: "World History & IR", q: "The 'Reign of Terror' was a radical and violent phase of which major historical event?", o: ["The American Revolution", "The Russian Revolution", "The French Revolution", "World War I"], a: 2, e: "The Reign of Terror (1793-94) was a period during the French Revolution led by the radical Jacobins under Robespierre, characterized by mass executions of perceived 'enemies of the revolution' by the guillotine." },
+    { subject: "World History & IR", q: "The principle of 'sovereign equality of all members' is a foundational principle of which organization?", o: ["European Union (EU)", "NATO", "United Nations (UN)", "G20"], a: 2, e: "Article 2 of the UN Charter states that 'The Organization is based on the principle of the sovereign equality of all its Members.' This is a cornerstone of the modern international system, though the power of the P5 in the Security Council is a notable exception." },
+    { subject: "World History & IR", q: "The attack on Pearl Harbor on December 7, 1941, by Japan, led to which significant event in World War II?", o: ["The surrender of Japan", "The entry of the United States into the war", "The beginning of the Battle of Britain", "The invasion of the Soviet Union"], a: 1, e: "The surprise military strike by the Imperial Japanese Navy Air Service upon the United States naval base at Pearl Harbor, Hawaii, was the immediate cause for the United States' formal entry into World War II the next day." },
+    { subject: "World History & IR", q: "The 'Uniting for Peace' resolution is a mechanism that allows which UN organ to take up matters of international peace and security if the Security Council is deadlocked by a veto?", o: ["The Secretary-General", "The International Court of Justice", "The Economic and Social Council (ECOSOC)", "The General Assembly (UNGA)"], a: 3, e: "The 'Uniting for Peace' resolution, adopted in 1950, gives the General Assembly the power to consider a matter and make recommendations for collective measures, including the use of armed force, if the Security Council fails to act due to a P5 veto." },
+    { subject: "World History & IR", q: "The 'capability approach', which defines development and justice in terms of enhancing people's freedoms and capabilities, is associated with which theorist?", o: ["John Rawls", "Amartya Sen", "Isaiah Berlin", "Robert Nozick"], a: 1, e: "Nobel laureate Amartya Sen is a key proponent of the capability approach. He argues that development should be seen as a process of expanding the real freedoms and capabilities that people enjoy, not just as economic growth." }
+];
+
+// Shuffle and slice to get 100 questions for the final test
+const finalQuestions = [...allQuestions].sort(() => 0.5 - Math.random());
+
+const startScreen = document.getElementById('start-screen');
+const quizScreen = document.getElementById('quiz-screen');
+const resultsScreen = document.getElementById('results-screen');
+
+const questionEl = document.getElementById('question');
+const questionSubjectEl = document.getElementById('question-subject');
+const optionsContainer = document.getElementById('options-container');
+const feedbackContainer = document.getElementById('feedback-container');
+const feedbackExplanationEl = document.getElementById('feedback-explanation');
+const nextBtn = document.getElementById('next-btn');
+
+const timerEl = document.getElementById('timer');
+const progressTextEl = document.getElementById('progress-text');
+const progressBarEl = document.getElementById('progress-bar');
+const startNewBtn = document.getElementById('start-new-btn');
+const resumeBtn = document.getElementById('resume-btn');
+const restartBtn = document.getElementById('restart-btn');
+
+let currentQuestionIndex;
+let score;
+let timerInterval;
+let timeLeft;
+let userAnswers;
+
+// Function to handle saving progress to localStorage
+function saveProgress() {
+    const progress = {
+        currentQuestionIndex,
+        userAnswers,
+        timeLeft,
+    };
+    localStorage.setItem('pcsMockTestProgress', JSON.stringify(progress));
+}
+
+// Function to handle loading progress from localStorage
+function loadProgress() {
+    const savedProgress = localStorage.getItem('pcsMockTestProgress');
+    if (savedProgress) {
+        resumeBtn.style.display = 'inline-block';
+        resumeBtn.onclick = () => {
+            const progress = JSON.parse(savedProgress);
+            currentQuestionIndex = progress.currentQuestionIndex;
+            userAnswers = progress.userAnswers;
+            timeLeft = progress.timeLeft;
+            score = userAnswers.filter((ans, index) => ans !== null && ans === finalQuestions[index].a).length;
+            
+            startScreen.style.display = 'none';
+            quizScreen.style.display = 'block';
+            startTimer(timeLeft);
+            loadQuestion();
+        };
+    }
+}
+
+// Function to clear progress
+function clearProgress() {
+    localStorage.removeItem('pcsMockTestProgress');
+    resumeBtn.style.display = 'none';
+}
+
+function startTest() {
+    clearProgress(); // Start a fresh test
+    currentQuestionIndex = 0;
+    score = 0;
+    userAnswers = new Array(finalQuestions.length).fill(null);
+    timeLeft = 120 * 60; // 120 minutes in seconds
+    
+    startScreen.style.display = 'none';
+    resultsScreen.style.display = 'none';
+    quizScreen.style.display = 'block';
+    
+    startTimer(timeLeft);
+    loadQuestion();
+    saveProgress();
+}
+
+function startTimer(startTime) {
+    if (timerInterval) clearInterval(timerInterval);
+    timeLeft = startTime;
+    timerInterval = setInterval(() => {
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            showResults();
+            return;
+        }
+        timeLeft--;
+        const hours = String(Math.floor(timeLeft / 3600)).padStart(2, '0');
+        const minutes = String(Math.floor((timeLeft % 3600) / 60)).padStart(2, '0');
+        const seconds = String(timeLeft % 60).padStart(2, '0');
+        timerEl.textContent = `${hours}:${minutes}:${seconds}`;
+        
+        // Save time progress every 10 seconds
+        if (timeLeft % 10 === 0) {
+            saveProgress();
+        }
+    }, 1000);
+}
+
+function loadQuestion() {
+    feedbackContainer.style.display = 'none';
+    nextBtn.style.display = 'none';
+    optionsContainer.innerHTML = '';
+
+    progressTextEl.textContent = `Question ${currentQuestionIndex + 1}/${finalQuestions.length}`;
+    progressBarEl.style.width = `${((currentQuestionIndex + 1) / finalQuestions.length) * 100}%`;
+
+    const questionData = finalQuestions[currentQuestionIndex];
+    questionSubjectEl.textContent = questionData.subject;
+    questionEl.textContent = questionData.q;
+
+    questionData.o.forEach((option, index) => {
+        const button = document.createElement('button');
+        button.classList.add('option-btn');
+        button.dataset.index = index;
+        
+        const prefix = document.createElement('span');
+        prefix.className = 'option-prefix';
+        prefix.textContent = `${String.fromCharCode(97 + index)})`;
+        
+        const text = document.createElement('span');
+        text.textContent = ` ${option}`;
+        
+        button.appendChild(prefix);
+        button.appendChild(text);
+        
+        optionsContainer.appendChild(button);
+    });
+
+    const userAnswer = userAnswers[currentQuestionIndex];
+    if (userAnswer !== null) {
+        // If question was already answered, show the result
+        showFeedback(userAnswer);
+    } else {
+        // Otherwise, add event listeners for new answer
+        Array.from(optionsContainer.children).forEach(button => {
+            button.addEventListener('click', selectAnswer);
+        });
+    }
+}
+
+function selectAnswer(e) {
+    const selectedBtn = e.currentTarget;
+    const selectedAnswerIndex = parseInt(selectedBtn.dataset.index);
+    userAnswers[currentQuestionIndex] = selectedAnswerIndex;
+
+    const correctAnswerIndex = finalQuestions[currentQuestionIndex].a;
+    if (selectedAnswerIndex === correctAnswerIndex) {
+        score++;
+    }
+    
+    showFeedback(selectedAnswerIndex);
+    saveProgress();
+}
+
+function showFeedback(selectedAnswerIndex) {
+    const correctAnswerIndex = finalQuestions[currentQuestionIndex].a;
+
+    Array.from(optionsContainer.children).forEach((button, index) => {
+        button.disabled = true;
+        if (index === correctAnswerIndex) {
+            button.classList.add('correct');
+        } else if (index === selectedAnswerIndex) {
+            button.classList.add('wrong');
+        }
+    });
+
+    feedbackExplanationEl.textContent = finalQuestions[currentQuestionIndex].e;
+    feedbackContainer.style.display = 'block';
+    feedbackContainer.className = 'feedback-container'; // Reset classes
+    if (selectedAnswerIndex === correctAnswerIndex) {
+        feedbackContainer.classList.add('correct');
+    } else {
+        feedbackContainer.classList.add('wrong');
+    }
+    
+    if (currentQuestionIndex < finalQuestions.length - 1) {
+        nextBtn.textContent = "Next Question";
+    } else {
+        nextBtn.textContent = "Finish Test";
+    }
+    nextBtn.style.display = 'inline-block';
+}
+
+function nextQuestion() {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < finalQuestions.length) {
+        loadQuestion();
+    } else {
+        showResults();
+    }
+}
+
+function showResults() {
+    clearInterval(timerInterval);
+    quizScreen.style.display = 'none';
+    resultsScreen.style.display = 'block';
+
+    const total = finalQuestions.length;
+    const correct = score;
+    const incorrect = userAnswers.filter((ans, index) => ans !== null && ans !== finalQuestions[index].a).length;
+    const unanswered = total - correct - incorrect;
+
+    document.getElementById('correct-answers-result').textContent = correct;
+    document.getElementById('wrong-answers-result').textContent = incorrect;
+    document.getElementById('unanswered-result').textContent = unanswered;
+    document.getElementById('final-score-result').textContent = `${correct * 2}`;
+    
+    clearProgress();
+}
+
+// Event Listeners for buttons
+startNewBtn.addEventListener('click', startTest);
+restartBtn.addEventListener('click', () => location.reload());
+nextBtn.addEventListener('click', nextQuestion);
+
+// Load progress on page load
+window.addEventListener('load', loadProgress);
+</script>
+</body>
+</html>
